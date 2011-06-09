@@ -1,2 +1,2 @@
-require 'cutter/railtie'
+require 'cutter/railtie' if defined?(Rails)
 require 'cutter/inspector'
