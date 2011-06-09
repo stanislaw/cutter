@@ -17,10 +17,11 @@ Jeweler::Tasks.new do |gem|
   gem.name = "cutter"
   gem.homepage = "http://github.com/stanislaw/cutter"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{one-line summary of your gem}
+  gem.description = %Q{longer description of your gem}
   gem.email = "s.pankevich@gmail.com"
   gem.authors = ["stanislaw"]
+  gem.files = Dir["{lib}/**/*"]
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
