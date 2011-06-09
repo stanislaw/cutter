@@ -13,7 +13,7 @@ I)
     ...
   end
   
-  your_method => 
+  your_method(1,"foo",:bar) => 
     method `your_method'
       variables: 
         args: [1, "foo", :bar]
