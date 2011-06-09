@@ -8,15 +8,21 @@ gem 'cutter'
 Methods are:
 
 I)
-  def your_any_method any_args
+  def your_method *args
     inspect!(local_variables,binding) # this string exactly!    
     ...
   end
+  
+  your_method => 
+    method `your_method'
+      variables: 
+        args: [1, "foo", :bar]
 
-Gives simple but nice trace of method's name and local_variables (if the #inspect! on the first line - local_variables = args passed to method)
+
+Gives simple but nice trace for inspection: method's name and local_variables (if #inspect! is on the first line => local_variables = args passed to method)
 
 II) 
-    def test_method
+    def your_method
       stamper("testing pieces of code") do
         piece_of_code #1
         stamp("piece #1 performed!")
@@ -25,6 +31,14 @@ II)
         pirce_of_code #3
       end
     end
+
+    your_method => 
+    ~ testing pieces of code 
+    ~ testing: start
+    ~ testing: piece #1 performed!, 10ms
+    ~ testing: piece #2 performed!, 231ms
+    ~ testing: end (247ms)
+
     
     or simply:
     def test_method

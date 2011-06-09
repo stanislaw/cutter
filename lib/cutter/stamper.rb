@@ -8,7 +8,7 @@ class Object
       time_passed = time_now - @time_initial
       puts("~ testing: #{message}, #{time_passed}ms")
     end
-    puts("  #{message}")
+    puts("~ #{message}")
     puts("~ testing: start")
     @time_initial = time_now
     yield
