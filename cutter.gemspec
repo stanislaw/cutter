@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "lib/cutter.rb",
-    "lib/cutter/railtie.rb",
-    "lib/inspector.rb"
+    "lib/cutter/inspector.rb",
+    "lib/cutter/railtie.rb"
   ]
   s.homepage = %q{http://github.com/stanislaw/cutter}
   s.licenses = ["MIT"]
