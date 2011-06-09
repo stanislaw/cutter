@@ -1,11 +1,13 @@
 class Object
+
+  # For now inspect! method only may be used with two arguments (local_variables, binding)
+  # Binding is a Ruby class: http://www.ruby-doc.org/core/classes/Binding.html
   
-  # For now #inspect! should be used with arguments: (local_variables,binding)
   def inspect! _local_variables, _binding
     puts "method: `#{caller[0][/`([^']*)'/,1]}'"
     puts %{  variables:} 
     _local_variables.map do |lv|
-      puts %{    #{lv}: #{eval(lv.to_s,_binding)} } 
+      puts %{    #{lv}: #{_binding.eval(lv.to_s)} } 
     end
   end
 
