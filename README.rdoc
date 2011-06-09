@@ -1,6 +1,6 @@
 = cutter
 
-For now it is two-methods-gem, I use a lot.
+For now it is two-methods-gem, I use a lot for simple debugging & performance measuring purposes.
 
 Include it into Gemfile:
 gem 'cutter'
