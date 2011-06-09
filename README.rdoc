@@ -8,12 +8,12 @@ gem 'cutter'
 Methods are:
 
 I)
-  def any_method *args
-    inspect!(local_variables,binding)     
+  def your_any_method any_args
+    inspect!(local_variables,binding) # this string exactly!    
     ...
   end
 
-Gives simple but nice trace of method's name and local_variables (if the first line - args passed)
+Gives simple but nice trace of method's name and local_variables (if the #inspect! on the first line - local_variables = args passed to method)
 
 II) def test_method
       stamper("testing pieces of code") do
@@ -32,7 +32,7 @@ II) def test_method
       }
     end
 
-Acts as self.benchmark{} or Benchmark.measure{} but with stamps in any position in block executed and it is much simpler 
+Acts as self.benchmark{} or Benchmark.measure{} but with stamps in any position in block executed, and it is much simpler 
 to write it quickly than all these Measure-dos.
 
 == Contributing to cutter
