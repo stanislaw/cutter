@@ -15,7 +15,8 @@ I)
 
 Gives simple but nice trace of method's name and local_variables (if the #inspect! on the first line - local_variables = args passed to method)
 
-II) def test_method
+II) 
+    def test_method
       stamper("testing pieces of code") do
         piece_of_code #1
         stamp("piece #1 performed!")
