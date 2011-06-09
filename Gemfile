@@ -5,7 +5,6 @@ source "http://rubygems.org"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
-  gem "sugar-high"
   gem "rspec"
   gem "rspec-rails"
   gem "shoulda", ">= 0"
