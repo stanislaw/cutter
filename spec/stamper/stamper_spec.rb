@@ -15,7 +15,7 @@ module Kernel
   end
 end
 
-describe "Inspection methods" do 
+describe "Stamper" do 
 
   def test_method
     stamper("testing test_method") do
