@@ -1,6 +1,39 @@
 = cutter
 
-Description goes here.
+For now it is two-methods-gem, I use a lot.
+
+Include it into Gemfile:
+gem 'cutter'
+
+Methods are:
+
+I)
+  def any_method *args
+    inspect!(local_variables,binding)     
+    ...
+  end
+
+Gives simple but nice trace of method's name and local_variables (if the first line - args passed)
+
+II) def test_method
+      stamper("testing pieces of code") do
+        piece_of_code #1
+        stamp("piece #1 performed!")
+        piece_of_code #2
+        stamp("piece #2 performed!")
+        pirce_of_code #3
+      end
+    end
+    
+    or simply:
+    def test_method
+      stamper {
+        piece of code
+      }
+    end
+
+Acts as self.benchmark{} or Benchmark.measure{} but with stamps in any position in block executed and it is much simpler 
+to write it quickly than all these Measure-dos.
 
 == Contributing to cutter
  
