@@ -1,7 +1,5 @@
 module Cutter
   class Inspection
-    attr_accessor :quiet
-
     class << self
       def quiet!
         @quiet = true
