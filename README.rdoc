@@ -21,7 +21,7 @@ I) As inspect! method to any of your methods:
 
 Gives simple but nice trace for inspection: method's name, local_variables(they include args passed to method)
 
-If you want to keep all inspect! methods fall silent at once, use
+If you want all #inspect! methods fall silent at once, use
     Cutter::Inspection.quiet!
 
 II) 
