@@ -7,7 +7,7 @@ gem 'cutter'
 
 Methods are:
 
-I) #inspect! method to any of your methods:
+I) Apply #inspect! method to any of your methods:
   def your_method *args
     inspect!(local_variables,binding) # this string exactly!    
     ...
