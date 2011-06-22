@@ -50,8 +50,8 @@ II)
       }
     end
 
-Acts as self.benchmark{} or Benchmark.measure{} but with stamps in any position in block executed, and it is much simpler 
-to write it quickly than all these Measure-dos.
+Acts as self.benchmark{} or Benchmark.measure{} but with stamps in any position in block executed.
+It is much simpler to write it quickly than all these Measure-dos.
 
 == Contributing to cutter
  
