@@ -7,7 +7,7 @@ gem 'cutter'
 
 Methods are:
 
-I)
+I) As inspect! method to any of your methods:
   def your_method *args
     inspect!(local_variables,binding) # this string exactly!    
     ...
@@ -19,7 +19,10 @@ I)
         args: [1, "foo", :bar]
 
 
-Gives simple but nice trace for inspection: method's name and local_variables (if #inspect! is on the first line => local_variables = args passed to method)
+Gives simple but nice trace for inspection: method's name, local_variables(they include args passed to method)
+
+If you want to keep all inspect! methods fall silent at once, use
+    Cutter::Inspection.quiet!
 
 II) 
     def your_method
