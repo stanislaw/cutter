@@ -22,7 +22,7 @@ class Object
   
   def inspect! _binding = nil, &block
     return true if Cutter::Inspection.quiet?
-    raise "Try binding as argument or wrap method content into block!" if (!block_given?&&!_binding)
+    raise "Try binding as argument or wrap used it with braces like: inspect! {}" if (!block_given?&&!_binding)
     _binding ||= block.binding
     puts "method: `#{caller_method_name}'"
     puts %{  variables:} 
