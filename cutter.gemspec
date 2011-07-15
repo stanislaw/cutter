@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cutter}
-  s.version = "0.5.4"
+  s.version = "0.5.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["stanislaw"]
-  s.date = %q{2011-07-15}
+  s.date = %q{2011-07-16}
   s.description = %q{longer description of your gem}
   s.email = %q{s.pankevich@gmail.com}
   s.extra_rdoc_files = [
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     "lib/cutter.rb",
+    "lib/cutter/array.rb",
     "lib/cutter/inspection.rb",
     "lib/cutter/railtie.rb",
     "lib/cutter/stamper.rb"
