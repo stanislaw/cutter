@@ -67,5 +67,16 @@ describe Cutter::Inspection do
       subject { method_block "first arg", 12345, :test }
       it { should == ("Return value")}
     end
+
+    describe 'called without args' do
+      def method_without_args
+        "various stuff"
+        inspect!
+        "various stuff"
+      end
+
+      subject{ method_without_args }
+      it { should raise_exception }
+    end
   end 
 end
