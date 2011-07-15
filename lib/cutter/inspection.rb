@@ -17,7 +17,8 @@ module Cutter
 end
 
 class Object
-  # For now inspect! method only may be used with two arguments (local_variables, binding)
+  
+  # #inspect! may be called inside any method as 'inspect! {}' or more rigorous: 'inspect!(binding)'
   # Binding is a Ruby class: http://www.ruby-doc.org/core/classes/Binding.html
   
   def inspect! _binding = nil, &block
