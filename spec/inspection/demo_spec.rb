@@ -17,6 +17,7 @@ describe 'Cutter::Inspection demonstration!'  do
       "Return value"
     end
 
+    puts "\nNo specs. Just a demonstration of traces!"
     specify { method_binding 1,2,3,4,5 }
     specify { method_block 1,2,3,4,5 }
   end 

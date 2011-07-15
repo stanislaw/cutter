@@ -41,6 +41,8 @@ If you want all #inspect! methods fall silent at once, use
 To make them sound again do
   Cutter::Inspection.loud!
 
+You can clone it and try bundle exec rspec spec/inspection/demo_spec. Very! Very simple!
+
 ==II) #stamper
     def your_method
       stamper("testing pieces of code") do
