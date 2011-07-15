@@ -3,7 +3,9 @@ require 'spec_helper'
 
 require 'stringio'
 require 'active_support'
+
 # http://thinkingdigitally.com/archive/capturing-output-from-puts-in-ruby/
+
 module Kernel
   def capture_stdout
     out = StringIO.new
