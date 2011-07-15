@@ -29,7 +29,6 @@ shared_examples_for "#inspect! method working right!" do
   end
 end
 
-
 describe Cutter::Inspection do 
 
   describe "#inspect" do
@@ -79,7 +78,7 @@ describe Cutter::Inspection do
       it { should raise_exception }
     end
 
-    describe 'called in method having no argments' do
+    describe 'called in method having no arguments' do
       def method_having_no_args
         "various stuff"
         inspect! {}
