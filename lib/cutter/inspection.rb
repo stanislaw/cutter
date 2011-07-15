@@ -22,13 +22,14 @@ class Object
   
   def inspect! _binding = nil, &block
     return true if Cutter::Inspection.quiet?
-    raise ArgumentError, "Try inspect(binding) or inspect! {}", caller if (!block_given?&&!_binding)
+    raise ArgumentError, "Try inspect(binding) or inspect! {}", caller if (!block_given? && !_binding)
     _binding ||= block.binding
-    puts "method: `#{caller_method_name}'"
-    puts %{  variables:} 
-    eval('local_variables',_binding).map do |lv|
-      puts %{    #{lv}: #{eval(lv.to_s, _binding)} } 
-    end
+    puts %|method: `#{caller_method_name}'|
+    lvb = eval('local_variables',_binding)
+    puts %|  variables: #{"[]" if lvb.empty?}|
+    lvb.map do |lv|
+      puts %|    #{lv}: #{eval(lv.to_s, _binding)}| 
+    end if lvb
     yield if block_given?
   end
 

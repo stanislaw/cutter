@@ -69,14 +69,25 @@ describe Cutter::Inspection do
     end
 
     describe 'called without args' do
-      def method_without_args
+      def method_without_args *args
         "various stuff"
         inspect!
         "various stuff"
       end
 
-      subject{ method_without_args }
+      subject{ method_without_args 1,2,3 }
       it { should raise_exception }
+    end
+
+    describe 'called in method having no argments' do
+      def method_having_no_args
+        "various stuff"
+        inspect! {}
+        "various stuff"
+      end
+
+      subject{ method_having_no_args }
+      it { should == "various stuff" }
     end
   end 
 end
