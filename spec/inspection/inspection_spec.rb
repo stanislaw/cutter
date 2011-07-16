@@ -88,5 +88,30 @@ describe Cutter::Inspection do
       subject{ method_having_no_args }
       it { should == "various stuff" }
     end
+    
+    describe "given with :inspect option" do
+      Cutter::Inspection.loud!
+      class SomeClass
+        attr_accessor :test_var
+
+        def initialize
+          @test_var = "I am test var!"
+        end
+
+        def method_inspected *args
+          inspect!(:inspect => true){}
+        end
+      end
+      
+      a = capture_stdout do
+        SomeClass.new.method_inspected
+      end
+    
+      subject {a.string}
+        it {should match(/SomeClass/)}
+        it {should match(/@test_var/)}
+        it {should match(/I am test var!/)}
+    end
+
   end 
 end

@@ -33,7 +33,8 @@ class Object
     options = options.extract_options! 
     level = options[:level]
     _caller = caller
-    
+   
+    self_inspection = eval('self.inspect', _binding) if options[:inspect]
     # Basic info
     puts %|\nmethod: `#{eval('__method__', _binding)}'|
     puts %|  called from class: #{eval('self.class', _binding)}|
@@ -43,6 +44,12 @@ class Object
     lvb.map do |lv|
       puts %|    #{lv}: #{eval(lv.to_s, _binding)}| 
     end if lvb
+
+    # Self inspection 
+    begin
+      puts %|  self inspection:|
+      puts %|    #{self_inspection}|
+    end if self_inspection
 
     # Caller methods chain
     begin
