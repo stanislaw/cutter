@@ -69,11 +69,9 @@ And finally :level => N gives caller methods chain (N + 1 caller methods):
       block: 
     caller methods: 
       /home/stanislaw/_work_/gems/cutter/spec/inspection/demo_spec.rb:33:in `method_caller_chain'
-      /home/stanislaw/_work_/gems/cutter/spec/inspection/demo_spec.rb:40:in `block (3 
-levels) in <top (required)>'
-      /home/stanislaw/.rvm/gems/ruby-1.9.2-p180@310/gems/rspec-core-2.6.4/lib/rspec/core/example.rb:48:in 
-`instance_eval'
-  
+      /home/stanislaw/_work_/gems/cutter/spec/inspection/demo_spec.rb:40:in `block (3 levels) in <top (required)>' 
+      /home/stanislaw/.rvm/gems/ruby-1.9.2-p180@310/gems/rspec-core-2.6.4/lib/rspec/core/example.rb:48:in `instance_eval'
+
 If you want all #inspect! methods fall silent at once, use
   Cutter::Inspection.quiet!
 To make them sound again do
