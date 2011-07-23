@@ -36,6 +36,17 @@ or in more rigorous way:
 
 Gives simple but nice trace for inspection: method's name and args that were passed to method
 
+With :inspect => true we have self#inspect of class to which method belongs to.
+
+  method: `method_self_inspect'
+    called from class: SelfInspectDemo
+    variables: 
+      name: 1
+      args: [2, 3, 4, 5]
+      block: 
+    self inspection:
+      #<SelfInspectDemo:0x82be488 @variable="I'm variable">
+
 If you want all #inspect! methods fall silent at once, use
   Cutter::Inspection.quiet!
 To make them sound again do
