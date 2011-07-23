@@ -15,9 +15,10 @@ Insert #inspect! method into any of your methods:
   end
 
   your_method(1,"foo",:bar) => 
-    method `your_method'
-      variables: 
-        args: [1, "foo", :bar]
+  
+  method `your_method'
+    variables: 
+      args: [1, "foo", :bar]
 
 or in more rigorous way:
 
@@ -26,12 +27,13 @@ or in more rigorous way:
   end
   
   your_another_method(1,"foo",:bar) => 
-    method `your_another_method'
-      variables: 
-        first: 1
-        second: "foo"
-        third: :bar
-        block: 
+  
+  method `your_another_method'
+    variables: 
+      first: 1
+      second: "foo"
+      third: :bar
+      block: 
 
 
 Gives simple but nice trace for inspection: method's name and args that were passed to method
@@ -44,6 +46,7 @@ With :inspect => true we have self#inspect of class to which method belongs to:
   end
 
   method_self_inspect(1,2,3,4,5) =>
+  
   method: `method_self_inspect'
     called from class: SelfInspectDemo
     variables: 
@@ -61,6 +64,7 @@ And finally :level => N gives caller methods chain (N + 1 caller methods):
   end
 
   method_caller_chain(1,2,3,4,5) => 
+  
   method: `method_caller_chain'
     called from class: RSpec::Core::ExampleGroup::Nested_1::Nested_1
     variables: 
