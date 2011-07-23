@@ -36,8 +36,14 @@ or in more rigorous way:
 
 Gives simple but nice trace for inspection: method's name and args that were passed to method
 
-With :inspect => true we have self#inspect of class to which method belongs to.
+With :inspect => true we have self#inspect of class to which method belongs to:
 
+  def method_self_inspect
+    ...
+    inspect!(:inspect => true) {}
+  end
+
+  method_self_inspect(1,2,3,4,5) =>
   method: `method_self_inspect'
     called from class: SelfInspectDemo
     variables: 
@@ -47,6 +53,24 @@ With :inspect => true we have self#inspect of class to which method belongs to.
     self inspection:
       #<SelfInspectDemo:0x82be488 @variable="I'm variable">
 
+And finally :level => 2 gives caller methods chain:
+
+  method: `method_caller_chain'
+    called from class: RSpec::Core::ExampleGroup::Nested_1::Nested_1
+    variables: 
+      name: 1
+      args: [2, 3, 4, 5]
+      block: 
+    caller methods: 
+      /home/stanislaw/_work_/gems/cutter/spec/inspection/demo_spec.rb:33:in 
+`method_caller_chain'
+      /home/stanislaw/_work_/gems/cutter/spec/inspection/demo_spec.rb:40:in `block (3 
+levels) 
+in <top (required)>'
+      
+/home/stanislaw/.rvm/gems/ruby-1.9.2-p180@310/gems/rspec-core-2.6.4/lib/rspec/core/example.rb:48:in 
+`instance_eval'
+  
 If you want all #inspect! methods fall silent at once, use
   Cutter::Inspection.quiet!
 To make them sound again do

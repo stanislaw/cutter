@@ -29,9 +29,15 @@ describe 'Cutter::Inspection demonstration!'  do
     end
     end
 
+    def method_caller_chain name, *args, &block
+      inspect!(:level => 2) {}
+    end
+
     puts "\nNo specs. Just a demonstration of traces!"
     specify { method_binding 1,2,3,4,5 }
     specify { method_block 1,2,3,4,5 }
     specify { SelfInspectDemo.new.method_self_inspect 1,2,3,4,5 }
+    specify { method_caller_chain 1,2,3,4,5 }
+
   end 
 end
