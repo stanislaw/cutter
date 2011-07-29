@@ -5,6 +5,7 @@ describe 'Cutter::Inspection demonstration!'  do
 
   describe "#inspect" do
     def method_binding first, second, *more
+      @instance_var1 = "I am instance var!"
       inspect! binding
       "Return value"
     end
@@ -30,7 +31,9 @@ describe 'Cutter::Inspection demonstration!'  do
     end
 
     def method_caller_chain name, *args, &block
-      inspect!(:level => 2) {}
+      @instance_variable = "I'm instance variable"
+      local_variable = "I'm local variable"
+      inspect!(:level => 2) { puts "Something!" }
     end
 
     puts "\nNo specs. Just a demonstration of traces!"

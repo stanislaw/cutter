@@ -40,10 +40,16 @@ class Object
     puts %|  called from class: #{eval('self.class', _binding)}|
 
     lvb = eval('local_variables',_binding)
-    puts %|  variables: #{"[]" if lvb.empty?}|
+    puts %|  local_variables: #{"[]" if lvb.empty?}|
     lvb.map do |lv|
       puts %|    #{lv}: #{eval(lv.to_s, _binding)}| 
     end if lvb
+
+    ivb = eval('instance_variables',_binding)
+    puts %|  instance_variables: #{"[]" if ivb.empty?}|
+    ivb.map do |lv|
+      puts %|    #{lv}: #{eval(lv.to_s, _binding)}| 
+    end if ivb
 
     # Self inspection 
     begin
@@ -61,7 +67,7 @@ class Object
    
     puts "\n"
     # Yield mysterious things if they exist in block.
-    yield if block_given?
+    yield if block_given? 
   end
 
   def caller_method_name(level = 1)
