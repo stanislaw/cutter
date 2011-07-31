@@ -42,13 +42,13 @@ class Object
     lvb = eval('local_variables',_binding)
     puts %|  local_variables: #{"[]" if lvb.empty?}|
     lvb.map do |lv|
-      puts %|    #{lv}: #{eval(lv.to_s, _binding)}| 
+      puts %|    #{lv}: #{eval(lv.to_s, _binding).inspect}| 
     end if lvb
 
     ivb = eval('instance_variables',_binding)
     puts %|  instance_variables: #{"[]" if ivb.empty?}|
     ivb.map do |lv|
-      puts %|    #{lv}: #{eval(lv.to_s, _binding)}| 
+      puts %|    #{lv}: #{eval(lv.to_s, _binding).inspect}| 
     end if ivb
 
     # Self inspection 
