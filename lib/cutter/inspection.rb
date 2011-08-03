@@ -31,24 +31,37 @@ class Object
     
     # Want caller methods chain to be traced? - pass option :level to inspect!
     options = options.extract_options! 
+    
+    max = options[:max]
+    options.maximize_options! if max 
+   
     level = options[:level]
     _caller = caller
    
     self_inspection = eval('self.inspect', _binding) if options[:inspect]
+
     # Basic info
-    puts %|\nmethod: `#{eval('__method__', _binding)}'|
+    puts %|\nmethod: `#{eval('__method__', _binding)}' #{'(maximal tracing)' if max}|
     puts %|  called from class: #{eval('self.class', _binding)}|
 
     lvb = eval('local_variables',_binding)
     puts %|  local_variables: #{"[]" if lvb.empty?}|
+
     lvb.map do |lv|
-      puts %|    #{lv}: #{eval(lv.to_s, _binding).inspect}| 
+      local_variable = eval(lv.to_s, _binding)
+      local_variable = (max ? local_variable.inspect : local_variable.to_real_string)
+
+      puts %|    #{lv}: #{local_variable}| 
     end if lvb
 
     ivb = eval('instance_variables',_binding)
     puts %|  instance_variables: #{"[]" if ivb.empty?}|
+    
     ivb.map do |lv|
-      puts %|    #{lv}: #{eval(lv.to_s, _binding).inspect}| 
+      instance_variable = eval(lv.to_s, _binding)
+      instance_variable = (max ? instance_variable.inspect : instance_variable.to_real_string)
+     
+      puts %|    #{lv}: #{instance_variable}| 
     end if ivb
 
     # Self inspection 
@@ -74,4 +87,15 @@ class Object
     caller[level][/`([^']*)'/,1].to_sym
   end
 
+  protected
+
+  def maximize_options!
+    self.merge!({:max => true, :inspect => true, :level => 2})
+  end
+
+  def to_real_string
+    return ":#{self.to_s}" if self.class == Symbol
+    self
+  end
 end
+
