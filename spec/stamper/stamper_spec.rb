@@ -17,15 +17,21 @@ module Kernel
   end
 end
 
+Stamper.scope :stan => "testing test_method" do |stan|
+  stan.msg _1: 'stamp1'
+  stan.msg _2: 'stamp2'
+  stan.msg _3: 'stamp3'
+end
+
 describe "Stamper" do 
 
   def test_method
-    stamper("testing test_method") do
-      stamp('stamp1')
+    stamper :stan do |s|
+      s.stamp :_1
       sleep 0.1
-      stamp('stamp2')
+      s.stamp :_2
       sleep 0.1
-      stamp('stamp3')
+      s.stamp :_3
       sleep 0.1
     end
   end
