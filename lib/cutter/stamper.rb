@@ -20,6 +20,7 @@ class Object
       log sp, msg, :light_blue
     end
 
+    return if Stamper.off?
     scope = Stamper[name] || Stamper[:default]
     scope.indent = Stamper.last ? Stamper.last.indent + 1 : 0
     Stamper.push scope
@@ -52,6 +53,19 @@ class Stamper
     @indent = 0
   end
 
+  def self.turn state = :on
+    @state = state
+  end
+
+  def self.on?
+    @state ||= :on
+    @state == :on
+  end
+
+  def self.off?
+    !on?
+  end
+
   def indent
     @indent ||= 0
   end
@@ -75,6 +89,7 @@ class Stamper
   end
 
   def stamp lbl = nil
+    return if Stamper.off?
     message = messages[lbl] || lbl.to_s.humanize
     time_passed = time_now - time_initial
     print "  " * nindent

@@ -17,7 +17,10 @@ stamper :stan do |s|
   s.stamp
   s.stamp :_1
   sleep 0.1
+  Stamper.turn :off
   s.stamp :_2
+  s.stamp :evil!
+  Stamper.turn :on
   s.stamp :hello_world
   stamper :hello do |s|
     s.stamp :_1
@@ -28,5 +31,10 @@ stamper :stan do |s|
   s.stamp "hello world: #{v}" # access var before block
   s.stamp :_3
   sleep 0.1
+end
+
+describe 'stamper' do
+  it 'works' do
+  end
 end
 
