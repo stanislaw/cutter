@@ -1,5 +1,6 @@
 require 'set'
 require 'active_support/core_ext/string/inflections.rb'
+require 'colorize'
 
 class Object
   def time_now
@@ -7,12 +8,16 @@ class Object
   end
 
   def stamper name, &block
-    def log sp, msg
-      puts sp + msg
+    def log sp, msg, color = :white
+      puts (sp + msg).send(color)
     end
 
     def line sp
-      log sp, "------------------------------"
+      log sp, "------------------------------".blue
+    end
+
+    def log_time sp, msg
+      log sp, msg, :light_blue
     end
 
     scope = Stamper[name] || Stamper[:default]
@@ -32,7 +37,7 @@ class Object
     Stamper.pop
     time_passed = time_now - scope.time_initial
     log spaces, "~ END   \"#{message}\"  "
-    log spaces, "[#{time_passed}ms]"
+    log_time spaces, "[#{time_passed}ms]"
     line spaces
   end
 end
