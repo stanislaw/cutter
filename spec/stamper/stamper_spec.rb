@@ -23,6 +23,11 @@ Stamper.scope :stan => "testing test_method" do |stan|
   stan.msg _3: 'stamp3'
 end
 
+Stamper.colors do |colors|
+  colors.line :blue
+  colors.stamp :green
+end
+
 describe "Stamper" do 
 
   def test_method
