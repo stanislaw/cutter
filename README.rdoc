@@ -88,30 +88,64 @@ You can clone it and try
 Very! Very simple!
 
 ==II) #stamper
-    def your_method
-      stamper("testing pieces of code") do
-        piece_of_code #1
-        stamp("piece #1 performed!")
-        piece_of_code #2
-        stamp("piece #2 performed!")
-        pirce_of_code #3
-      end
-    end
+Stamper.scope :stan => "testing test_method" do |stan|
+  stan.msg _1: 'stamp1'
+  stan.msg _2: 'stamp2'
+  stan.msg _3: 'stamp3'
+end
 
-    your_method => 
-    ~ testing pieces of code 
-    ~ testing: start
-    ~ testing: piece #1 performed!, 10ms
-    ~ testing: piece #2 performed!, 231ms
-    ~ testing: end (247ms)
+Stamper.scope :hello => "testing hello part" do |stan|
+  stan.msg _1: 'hello stan'
+  stan.msg _2: 'nice to see you'
+end
 
-    
-    or simply:
-    def test_method
-      stamper {
-        piece of code
-      }
-    end
+v = 32
+
+stamper :stan do |s|
+  s.stamp
+  s.stamp :_1
+  sleep 0.1
+  s.stamp :_2
+  s.stamp :hello_world
+  stamper :hello do |s|
+    s.stamp :_1
+    sleep 0.1
+    s.stamp :_2
+  end
+  sleep 0.1
+  s.stamp "hello world: #{v}" # access var before block
+  s.stamp :_3
+  sleep 0.1
+end
+
+ => 
+
+------------------------------
+~ START "testing test_method"
+  ~ stamp:       0 ms   
+  ~ stamp:       0 ms   stamp1
+  ~ stamp:     101 ms   stamp2
+  ~ stamp:     101 ms   Hello world
+  ------------------------------
+  ~ START "testing hello part"
+    ~ stamp:       0 ms   hello stan
+    ~ stamp:     101 ms   nice to see you
+  ~ END   "testing hello part"  
+  [101ms]
+  ------------------------------
+  ~ stamp:     305 ms   Hello world: 32
+  ~ stamp:     305 ms   stamp3
+~ END   "testing test_method"  
+[406ms]
+------------------------------
+
+or simply:
+
+def test_method
+  stamper {
+    piece of code
+  }
+end
 
 Acts as self.benchmark{} (in Rails) or Benchmark.measure{} (common Ruby) but with stamps in any position in block executed.
 It is much simpler to write it quickly than all these Measure-dos.
