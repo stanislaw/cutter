@@ -44,10 +44,9 @@ class Stamper
   end
 
   def stamp lbl = :none
-    msg = messages[lbl]
+    message = messages[lbl]
     time_passed = time_now - time_initial
-    message = msg ? "~ testing: #{message}, #{time_passed}ms" : "#{time_passed}ms"
-    puts message
+    puts (message ? "~ testing: #{message}, #{time_passed}ms" : "#{time_passed}ms")
   end
 
   module ClassMethods
