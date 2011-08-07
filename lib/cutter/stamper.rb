@@ -30,26 +30,21 @@ class Stamper
   end
 
   def msg label
-    messages << label
+    messages[label.keys.first] = [label.values.first]
   end
 
   alias_method :<<, :msg
 
-  def [] key
-   # puts "msgs:" << messages.inspect
-   found = messages.select do |s|
-     s.keys.first == key
-   end
-   found.first
+  def messages
+    @messages ||= {}
   end
 
-  def messages
-    @messages ||= Set.new
+  def [] key
+    messages[key]
   end
 
   def stamp lbl = :none
-    msg = self[lbl]
-    message = msg ? msg.values.first : nil
+    msg = messages[lbl]
     time_passed = time_now - time_initial
     message = msg ? "~ testing: #{message}, #{time_passed}ms" : "#{time_passed}ms"
     puts message
@@ -60,19 +55,19 @@ class Stamper
       raise ArgumentError, "Must have hash, was: #{label}" if !label.kind_of? Hash
       raise ArgumentError, "Must have block" if !block
       stamper = Stamper.new(label)
-      stampers << stamper
+      stampers[label.keys.first] = stamper
       yield stamper
       stamper
     end
 
     def [] key
-      stampers.select{|s| s.label.keys.first == key }.first
+      stampers[key]
     end
 
     protected
 
     def stampers
-      @stampers ||= Set.new
+      @stampers ||= {}
     end
   end
   extend ClassMethods
