@@ -17,6 +17,8 @@ Stamper.colors do |colors|
   colors[:stamp]  = :green
 end
 
+Stamper.turn_colors :off
+
 v = 32
 
 stamper :stan do |s|

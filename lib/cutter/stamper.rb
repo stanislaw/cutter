@@ -9,7 +9,8 @@ class Object
 
   def stamper name, &block
     def log sp, msg, color = :white
-      puts (sp + msg).send(color)
+      message = sp + msg
+      puts color ?  message.send(color) : message
     end
 
     def line sp
@@ -21,7 +22,7 @@ class Object
     end
 
     def color type
-      Stamper.colors_config[type]
+      Stamper.colors_config[type] if Stamper.colors?
     end
 
     return if Stamper.off?
@@ -55,6 +56,15 @@ class Stamper
   def initialize label
     @label = label
     @indent = 0
+  end
+
+  def self.turn_colors state = :on
+    @colors_state = state
+  end
+
+  def self.colors?
+    @colors_state ||= :on
+    @colors_state == :on
   end
 
   def self.colors &block
