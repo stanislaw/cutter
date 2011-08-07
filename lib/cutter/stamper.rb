@@ -7,18 +7,13 @@ class Object
     Time.now.strftime("%s%L").to_i
   end
 
-  def stamper name, &block
-    def log sp, msg, color = :white
-      message = sp + msg
-      puts color ?  message.send(color) : message
-    end
-
+  def stamper name = nil, &block
     def line sp
-      log sp, "------------------------------", color(:line)
+      log_coloured sp, "------------------------------", color(:line)
     end
 
     def log_time sp, msg
-      log sp, msg, color(:time)
+      log_coloured sp, msg, color(:time)
     end
 
     def color type
@@ -36,13 +31,13 @@ class Object
     end
     spaces = "  " * scope.indent
     line spaces
-    log spaces, "~ START \"#{message}\""
+    log_coloured spaces, "~ START " << "#{message}"
     scope.time_initial = time_now
     yield scope
     scope.indent -= 1 if scope.indent > 0
     Stamper.pop
     time_passed = time_now - scope.time_initial
-    log spaces, "~ END   \"#{message}\"  "
+    log_coloured spaces, "~ END " << "#{message}"
     log_time spaces, "[#{time_passed}ms]"
     line spaces
   end
@@ -53,26 +48,11 @@ class Stamper
   attr_accessor :time_initial
   attr_writer   :indent
 
+  include ColoredOutputs
+
   def initialize label
     @label = label
     @indent = 0
-  end
-
-  def self.turn_colors state = :on
-    @colors_state = state
-  end
-
-  def self.colors?
-    @colors_state ||= :on
-    @colors_state == :on
-  end
-
-  def self.colors &block
-    yield colors_config
-  end
-
-  def self.colors_config
-    @colors ||= {:line => :blue, :time => :light_blue}
   end
 
   def self.turn state = :on
@@ -119,6 +99,7 @@ class Stamper
   end
 
   module ClassMethods
+
     def scope label, &block
       raise ArgumentError, "Must have hash, was: #{label}" if !label.kind_of? Hash
       raise ArgumentError, "Must have block" if !block
@@ -156,4 +137,7 @@ class Stamper
     end
   end
   extend ClassMethods
+end
+
+Stamper.scope :default => nil do |default|
 end

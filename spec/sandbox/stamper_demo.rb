@@ -17,7 +17,7 @@ Stamper.colors do |colors|
   colors[:stamp]  = :green
 end
 
-Stamper.turn_colors :off
+Stamper.turn_colors :on
 
 v = 32
 
@@ -43,6 +43,9 @@ end
 
 describe 'it' do
   it 'works' do
+    stamper {
+      puts "3333"
+    }
   end
 end
 

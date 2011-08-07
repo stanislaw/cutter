@@ -24,8 +24,8 @@ Stamper.scope :stan => "testing test_method" do |stan|
 end
 
 Stamper.colors do |colors|
-  colors.line :blue
-  colors.stamp :green
+  colors[:line]  = :blue
+  colors[:stamp] = :green
 end
 
 describe "Stamper" do 
