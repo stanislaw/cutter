@@ -11,6 +11,12 @@ Stamper.scope :hello => "testing hello part" do |stan|
   stan.msg _2: 'nice to see you'
 end
 
+Stamper.colors do |colors|
+  colors[:line]   = :green
+  colors[:time]   = :yellow
+  colors[:stamp]  = :green
+end
+
 v = 32
 
 stamper :stan do |s|
@@ -33,7 +39,7 @@ stamper :stan do |s|
   sleep 0.1
 end
 
-describe 'stamper' do
+describe 'it' do
   it 'works' do
   end
 end

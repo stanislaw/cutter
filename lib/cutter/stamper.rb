@@ -13,11 +13,15 @@ class Object
     end
 
     def line sp
-      log sp, "------------------------------".blue
+      log sp, "------------------------------", color(:line)
     end
 
     def log_time sp, msg
-      log sp, msg, :light_blue
+      log sp, msg, color(:time)
+    end
+
+    def color type
+      Stamper.colors_config[type]
     end
 
     return if Stamper.off?
@@ -51,6 +55,14 @@ class Stamper
   def initialize label
     @label = label
     @indent = 0
+  end
+
+  def self.colors &block
+    yield colors_config
+  end
+
+  def self.colors_config
+    @colors ||= {:line => :blue, :time => :light_blue}
   end
 
   def self.turn state = :on
