@@ -30,7 +30,7 @@ class Stamper
   end
 
   def msg label
-    messages[label.keys.first] = [label.values.first]
+    messages[label.keys.first] = label.values.first
   end
 
   alias_method :<<, :msg
@@ -43,10 +43,10 @@ class Stamper
     messages[key]
   end
 
-  def stamp lbl = :none
-    message = messages[lbl]
+  def stamp lbl = nil
+    message = messages[lbl] || lbl
     time_passed = time_now - time_initial
-    puts (message ? "~ testing: #{message}, #{time_passed}ms" : "#{time_passed}ms")
+    printf("~ stamp: %7d ms   #{message}\n", time_passed)
   end
 
   module ClassMethods
