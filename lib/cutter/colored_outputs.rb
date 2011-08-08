@@ -1,8 +1,15 @@
 require 'colorize'
 class Object
-  def log_coloured sp, msg, color = :white
+  
+  def line sp = ""
+    log_coloured sp, "------------------------------", color(:line)
+  end
+
+
+  def log_coloured sp, msg, color = :default
     message = sp + msg
-    puts color ? message.send(color) : message
+    message = color != :default ? message.send(color) : message
+    puts message
   end
 end
 
@@ -28,7 +35,7 @@ module Cutter
 
                      # Colors for #inspect!
                      #:called_from => :light_magenta,
-                     :class_name => :red,
+                     #:class_name => :red,
                      #:method => :blue,
                      #:method_name => :green,
                      #:lv => :blue,

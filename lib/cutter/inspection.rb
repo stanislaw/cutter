@@ -29,8 +29,8 @@ class Object
     end
 
     def to_cs obj
-      color = __colors[obj] || :white
-      to_s.send(color)
+      color = __colors[obj] || :default
+      color != :default ? to_s.send(color) : to_s
     end
 
     # Getting binding

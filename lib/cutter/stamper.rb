@@ -7,9 +7,6 @@ class Object
   end
 
   def stamper name = nil, &block
-    def line sp
-      log_coloured sp, "------------------------------", color(:line)
-    end
 
     def log_time sp, msg
       log_coloured sp, msg, color(:time)
