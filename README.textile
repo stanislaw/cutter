@@ -1,14 +1,17 @@
-= cutter
+h1. Cutter
 
-For now it is two-methods-gem I use a lot for simple debugging & performance measuring purposes.
+Two-methods-gem I use a lot for simple debugging & performance measuring purposes.
+
 Include it into Gemfile:
   gem 'cutter'
 
 Methods are:
 
-==I) #inspect! 
+h2. I) #inspect! 
 
 Insert #inspect! method into any of your methods:
+<pre>
+<code>
   def your_method *your_args
     inspect! {} # this string exactly!    
     ...
@@ -19,9 +22,12 @@ Insert #inspect! method into any of your methods:
   method `your_method'
     variables: 
       args: [1, "foo", :bar]
+</code>
+</pre>
 
 or in more rigorous way:
-
+<pre>
+<code>
   def your_another_method(first, second, third, &block)
     inspect!(binding)
   end
@@ -34,12 +40,14 @@ or in more rigorous way:
       second: "foo"
       third: :bar
       block: 
-
+</code>
+</pre>
 
 Gives simple but nice trace for inspection: method's name and args that were passed to method
 
 With :inspect => true we have self#inspect of class to which method belongs to:
-
+<pre>
+<code>
   def method_self_inspect
     ...
     inspect!(:inspect => true) {}
@@ -55,9 +63,13 @@ With :inspect => true we have self#inspect of class to which method belongs to:
       block: 
     self inspection:
       #<SelfInspectDemo:0x82be488 @variable="I'm variable">
+</code>
+</pre>
 
 And finally :level => N gives caller methods chain (N + 1 caller methods):
 
+<pre>
+<code>
   def method_caller_chain
     ...
     inspect!(:level => 2)
@@ -75,19 +87,24 @@ And finally :level => N gives caller methods chain (N + 1 caller methods):
       /home/stanislaw/_work_/gems/cutter/spec/inspection/demo_spec.rb:33:in `method_caller_chain'
       /home/stanislaw/_work_/gems/cutter/spec/inspection/demo_spec.rb:40:in `block (3 levels) in <top (required)>' 
       /home/stanislaw/.rvm/gems/ruby-1.9.2-p180@310/gems/rspec-core-2.6.4/lib/rspec/core/example.rb:48:in `instance_eval'
+</code>
+</pre>
 
 If you want all #inspect! methods fall silent at once, use
-  Cutter::Inspection.quiet!
+  @Cutter::Inspection.quiet!@
 To make them sound again do
-  Cutter::Inspection.loud!
+  @Cutter::Inspection.loud!@
 
 You can clone it and try 
   
-  bundle exec rspec spec/inspection/demo_spec.rb
+  @bundle exec rspec spec/inspection/demo_spec.rb@
   
 Very! Very simple!
 
-==II) #stamper
+h2. II) #stamper
+
+<pre>
+<code>
 Stamper.scope :stan => "testing test_method" do |stan|
   stan.msg _1: 'stamp1'
   stan.msg _2: 'stamp2'
@@ -138,30 +155,29 @@ end
 ~ END   "testing test_method"  
 [406ms]
 ------------------------------
+</code>
+</pre>
 
 or simply:
-
+<pre>
+<code>
 def test_method
   stamper {
     piece of code
   }
 end
+</code>
+</pre>
 
 Acts as self.benchmark{} (in Rails) or Benchmark.measure{} (common Ruby) but with stamps in any position in block executed.
 It is much simpler to write it quickly than all these Measure-dos.
 
-== Contributing to cutter
- 
-* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
-* Fork the project
-* Start a feature/bugfix branch
-* Commit and push until you are happy with your contribution
-* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
-* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+h2. Contributors
 
-== Copyright
+* Stanislaw Pankevich
+* Kristian Mandrup
 
-Copyright (c) 2011 Stanislaw Pankevich. See LICENSE.txt for
-further details.
+h2. Copyright
+
+Copyright (c) 2011 Stanislaw Pankevich
 
