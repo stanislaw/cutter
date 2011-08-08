@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'stringio'
- 
 describe 'Cutter::Inspection demonstration!'  do 
 
   describe "#inspect" do
@@ -36,11 +35,20 @@ describe 'Cutter::Inspection demonstration!'  do
       inspect!(:level => 2) { puts "Something!" }
     end
 
+    def minimal
+      inspect!{}
+    end
+
+    def maximal *args
+      inspect!(:max => true) {}
+    end
+
     puts "\nNo specs. Just a demonstration of traces!"
     specify { method_binding 1,2,3,4,5 }
     specify { method_block 1,2,3,4,5 }
     specify { SelfInspectDemo.new.method_self_inspect 1,2,3,4,5 }
     specify { method_caller_chain 1,2,3,4,5 }
-
+    specify { minimal }
+    specify { maximal 1,:two, 'three', {:four => 5} }
   end 
 end

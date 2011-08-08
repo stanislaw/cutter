@@ -6,28 +6,49 @@ class Object
   end
 end
 
-module ColoredOutputs
+module Cutter
+  module ColoredOutputs
+    module ClassMethods
+      def turn_colors state = :on
+        @colors_state = state
+      end
 
-  module ClassMethods
-    def turn_colors state = :on
-      @colors_state = state
+      def colors?
+        @colors_state ||= :on
+        @colors_state == :on
+      end
+
+      def colors &block
+        yield colors_config
+      end
+
+      def colors_config
+        @colors ||= {:line => :blue, 
+                     :time => :light_blue,
+
+                     # Colors for #inspect!
+                     #:called_from => :light_magenta,
+                     :class_name => :red,
+                     #:method => :blue,
+                     #:method_name => :green,
+                     #:lv => :blue,
+                     #:lv_names => :magenta,
+                     #:lv_values => :light_red,
+                     #:iv => :cyan,
+                     #:iv_names => :light_cyan,
+                     #:iv_values => :light_blue,
+                     #:self_inspection => :red,
+                     #:self_inspection_trace => :blue,
+                     #:caller_methods => :light_cyan,
+                     #:caller_method => :green
+                    }
+      end
     end
 
-    def colors?
-      @colors_state ||= :on
-      @colors_state == :on
-    end
+    extend ClassMethods
 
-    def colors &block
-      yield colors_config
+    def self.included(base)
+      base.extend ClassMethods
     end
-
-    def colors_config
-      @colors ||= {:line => :blue, :time => :light_blue}
-    end
-  end
-
-  def self.included(base)
-    base.extend ClassMethods
   end
 end

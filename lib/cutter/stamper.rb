@@ -1,6 +1,5 @@
 require 'set'
 require 'active_support/core_ext/string/inflections.rb'
-require 'colorize'
 
 class Object
   def time_now
@@ -48,7 +47,7 @@ class Stamper
   attr_accessor :time_initial
   attr_writer   :indent
 
-  include ColoredOutputs
+  include Cutter::ColoredOutputs
 
   def initialize label
     @label = label
