@@ -3,13 +3,17 @@ h1. Cutter
 Two-methods-gem I use a lot for simple debugging & performance measuring purposes.
 
 Include it into Gemfile:
-  gem 'cutter'
 
-Methods are:
+<pre>
+<code>
+gem 'cutter'
+</code>
+</pre>
 
 h2. I) #inspect! 
 
 Insert #inspect! method into any of your methods:
+
 <pre>
 <code>
   def your_method *your_args
@@ -26,6 +30,7 @@ Insert #inspect! method into any of your methods:
 </pre>
 
 or in more rigorous way:
+
 <pre>
 <code>
   def your_another_method(first, second, third, &block)
@@ -46,6 +51,7 @@ or in more rigorous way:
 Gives simple but nice trace for inspection: method's name and args that were passed to method
 
 With :inspect => true we have self#inspect of class to which method belongs to:
+
 <pre>
 <code>
   def method_self_inspect
