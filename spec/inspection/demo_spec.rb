@@ -47,7 +47,7 @@ describe 'Cutter::Inspection demonstration!'  do
     specify { method_binding 1,2,3,4,5 }
     specify { method_block 1,2,3,4,5 }
     specify { SelfInspectDemo.new.method_self_inspect 1,2,3,4,5 }
-    specify { method_caller_chain 1,2,3,4,5 }
+    specify { method_caller_chain :"1",2,3,4,5 }
     specify { minimal }
     specify { maximal 1,:two, 'three', {:four => 5} }
   end 

@@ -5,7 +5,6 @@ class Object
     log_coloured sp, "------------------------------", color(:line)
   end
 
-
   def log_coloured sp, msg, color = :default
     message = sp + msg
     message = color != :default ? message.send(color) : message
