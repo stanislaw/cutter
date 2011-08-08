@@ -17,13 +17,13 @@ module Kernel
   end
 end
 
-Stamper.scope :stan => "testing test_method" do |stan|
+Cutter::Stamper.scope :stan => "testing test_method" do |stan|
   stan.msg _1: 'stamp1'
   stan.msg _2: 'stamp2'
   stan.msg _3: 'stamp3'
 end
 
-Stamper.colors do |colors|
+Cutter::Stamper.colors do |colors|
   colors[:line]  = :blue
   colors[:stamp] = :green
 end
