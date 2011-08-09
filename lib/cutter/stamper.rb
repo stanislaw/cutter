@@ -8,10 +8,6 @@ class Object
 
   def stamper name = nil, &block
 
-    def log_time sp, msg
-      log_coloured sp, msg, color(:time)
-    end
-
     return if stamper_class.off?
     scope = stamper_class[name] || stamper_class[:default]
     scope.indent = stamper_class.last ? stamper_class.last.indent + 1 : 0
@@ -21,17 +17,23 @@ class Object
     if scope
       message = scope.label.values.first
     end
-    spaces = "  " * scope.indent
-    line spaces
-    log_coloured spaces, "~ START " << "#{message}"
+    spaces = "    " * scope.indent
+    puts "\n"
+    log_coloured spaces, "#{message}", color(:message_name)
+    log_coloured spaces, "#{'-'*message.length}", color(:message_line)
+
     scope.time_initial = time_now
     yield scope
     scope.indent -= 1 if scope.indent > 0
     stamper_class.pop
     time_passed = time_now - scope.time_initial
-    log_coloured spaces, "~ END " << "#{message}"
-    log_time spaces, "[#{time_passed}ms]"
-    line spaces
+   
+    tps = "#{time_passed}ms"
+    offset = message.length - tps.length
+    offset = 0 if offset < 0
+    log_coloured spaces, "#{'-'*message.length}", color(:total_line)
+    log_coloured spaces + "#{' ' * (offset)}", tps, color(:total_count)
+    puts "\n"
   end
 
   private
@@ -106,7 +108,7 @@ module Cutter
       message = messages[lbl] || lbl.to_s.humanize
       time_passed = time_now - time_initial
       print "  " * nindent
-      printf("~ stamp: %7d ms   #{message}\n", time_passed)
+      printf("stamp: %7d ms   #{message}\n", time_passed)
     end
 
     module ClassMethods
@@ -151,5 +153,5 @@ module Cutter
   end
 end
 
-Cutter::Stamper.scope :default => nil do |default|
+Cutter::Stamper.scope :default => "no name" do |default|
 end

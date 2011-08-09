@@ -32,6 +32,10 @@ module Cutter
         @colors ||= {:line => :blue, 
                      :time => :light_blue,
 
+                     :message_name => :cyan,
+                     :message_line => :cyan,
+                     :total_line => :yellow,
+                     :total_count => :yellow
                      # Colors for #inspect!
                      #:called_from => :light_magenta,
                      #:class_name => :red,
