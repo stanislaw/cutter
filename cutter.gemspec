@@ -4,17 +4,17 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{cutter}
-  s.version = "0.8.2"
+  s.name = "cutter"
+  s.version = "0.8.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["stanislaw"]
-  s.date = %q{2011-08-09}
-  s.description = %q{longer description of your gem}
-  s.email = %q{s.pankevich@gmail.com}
+  s.date = "2012-05-28"
+  s.description = "longer description of your gem"
+  s.email = "s.pankevich@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
-    "README.textile"
+    "README.md"
   ]
   s.files = [
     "lib/cutter.rb",
@@ -22,13 +22,14 @@ Gem::Specification.new do |s|
     "lib/cutter/colored_outputs.rb",
     "lib/cutter/inspection.rb",
     "lib/cutter/railtie.rb",
-    "lib/cutter/stamper.rb"
+    "lib/cutter/stamper.rb",
+    "lib/cutter/version.rb"
   ]
-  s.homepage = %q{http://github.com/stanislaw/cutter}
+  s.homepage = "http://github.com/stanislaw/cutter"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
-  s.summary = %q{one-line summary of your gem}
+  s.rubygems_version = "1.8.19"
+  s.summary = "one-line summary of your gem"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -36,22 +37,19 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<activesupport>, [">= 2.3.5"])
       s.add_runtime_dependency(%q<colorize>, [">= 0.5"])
-      s.add_development_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_development_dependency(%q<jeweler>, ["~> 1.6.2"])
-      s.add_development_dependency(%q<rcov>, [">= 0"])
+      s.add_development_dependency(%q<bundler>, [">= 0"])
+      s.add_development_dependency(%q<jeweler>, [">= 0"])
     else
       s.add_dependency(%q<activesupport>, [">= 2.3.5"])
       s.add_dependency(%q<colorize>, [">= 0.5"])
-      s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-      s.add_dependency(%q<jeweler>, ["~> 1.6.2"])
-      s.add_dependency(%q<rcov>, [">= 0"])
+      s.add_dependency(%q<bundler>, [">= 0"])
+      s.add_dependency(%q<jeweler>, [">= 0"])
     end
   else
     s.add_dependency(%q<activesupport>, [">= 2.3.5"])
     s.add_dependency(%q<colorize>, [">= 0.5"])
-    s.add_dependency(%q<bundler>, ["~> 1.0.0"])
-    s.add_dependency(%q<jeweler>, ["~> 1.6.2"])
-    s.add_dependency(%q<rcov>, [">= 0"])
+    s.add_dependency(%q<bundler>, [">= 0"])
+    s.add_dependency(%q<jeweler>, [">= 0"])
   end
 end
 
