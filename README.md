@@ -103,7 +103,7 @@ is called on every variable.
   # method: `maximal' (maximal tracing)
   #   called from class: RSpec::Core::ExampleGroup::Nested_1::Nested_1
   #   local_variables: 
-  #   args: [1, :two, "three", {:four=>5}]
+  #     args: [1, :two, "three", {:four=>5}]
   #   instance_variables: 
   #     @example: #<RSpec::Core::Example:0xa1d378 >
   #     ...
