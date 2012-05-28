@@ -29,92 +29,99 @@ class Object
     raise ArgumentError, "Try inspect(binding) or inspect! {}", caller if (!block_given? && !_binding)
     _binding ||= block.binding
     
-    options = options.extract_options! 
-    
-    max = options[:max]
-    options.maximize_options! if max 
+    max = true if options.include? :max
+    options << :instance << :max << :self << :caller if max
+    options.uniq!
+ 
+    iv = true if options.include? :instance
 
-    # Want caller methods chain to be traced? - pass option :level to inspect!
-    level = options[:level]
-    _caller = caller
+    # Want caller methods chain to be traced? - pass option :caller to #inspect!
+    _caller = true if options.include? :caller
    
-    self_inspection = eval('self.inspect', _binding) if options[:inspect]
+    self_inspection = eval('self.inspect', _binding) if options.include? :self
 
     # Basic info
     method_name = eval('__method__', _binding)
     class_name = eval('self.class', _binding)
     
-    puts "\n%s `%s' %s" % ['method:'.__cs(:method), method_name.__cs(:method_name), ('(maximal tracing)' if max)]
-    puts "  %s %s" % ['called from class:'.__cs(:called_from), class_name.__cs(:class_name)]
+    puts "\n%s `%s' %s" % ['method:'.to_colorized_string(:method), method_name.to_colorized_string(:method_name), ('(maximal tracing)' if max)]
+    puts "  %s %s" % ['called from class:'.to_colorized_string(:called_from), class_name.to_colorized_string(:class_name)]
 
     # Local Variables
     lvb = eval('local_variables',_binding)
-    puts "  %s %s" % ['local_variables:'.__cs(:lv), ("[]" if lvb.empty?)]
+    puts "  %s %s" % ['local_variables:'.to_colorized_string(:lv), ("[]" if lvb.empty?)]
 
     lvb.map do |lv|
       local_variable = eval(lv.to_s, _binding)
-      local_variable = (max ? local_variable.inspect : local_variable.__rs)
+      local_variable = (max ? local_variable.inspect : local_variable.to_real_string)
 
-      puts "    %s: %s" % [lv.__cs(:lv_names), local_variable.__cs(:lv_values)] 
+      puts "    %s: %s" % [lv.to_colorized_string(:lv_names), local_variable.to_colorized_string(:lv_values)] 
     end if lvb
 
     # Instance Variables
-    ivb = eval('instance_variables',_binding)
-    
-    puts "  %s %s" % ["instance_variables:".__cs(:iv), ("[]" if ivb.empty?)]
-    
-    ivb.map do |iv|
-      instance_variable = eval(iv.to_s, _binding)
-      instance_variable = (max ? instance_variable.inspect : instance_variable.__rs)
-     
-      puts "    %s: %s" % [iv.__cs(:iv_names), instance_variable.__cs(:iv_values)] 
-    end if ivb
+    begin
+      ivb = eval('instance_variables',_binding)
+      
+      puts "  %s %s" % ["instance_variables:".to_colorized_string(:iv), ("[]" if ivb.empty?)]
+      
+      ivb.map do |iv|
+        instance_variable = eval(iv.to_s, _binding)
+        instance_variable = (max ? instance_variable.inspect : instance_variable.to_real_string)
+       
+        puts "    %s: %s" % [iv.to_colorized_string(:iv_names), instance_variable.to_colorized_string(:iv_values)] 
+      end if ivb
+    end if iv
 
     # Self inspection 
     begin
-      puts "  self inspection:".__cs(:self_inspection)
-      puts "    %s" % self_inspection.__cs(:self_inspection_trace)
+      puts "  self inspection:".to_colorized_string(:self_inspection)
+      puts "  %s" % self_inspection.to_colorized_string(:self_inspection_trace)
     end if self_inspection
 
     # Caller methods chain
     begin
-    puts "  caller methods: ".__cs(:caller_methods)
-    0.upto(level).each {|index|
-      puts "    %s" % _caller[index].__cs(:caller_method)
-    }
-    end if level
+      puts "  caller methods: ".to_colorized_string(:caller_methods)
+      caller.each do |meth|
+        puts "  %s" % meth.to_colorized_string(:caller_method)
+      end
+    end if _caller
    
     puts "\n"
+    
     # Yield mysterious things if they exist in block.
-    yield if block_given? 
+    yield if block_given?
   end
+
+  alias :iii :inspect!
 
   protected
 
-  def caller_method_name(level = 1)
-    caller[level][/`([^']*)'/,1].to_sym
-  end
-
   def maximize_options!
-    self.merge!({:max => true, :inspect => true, :level => 2})
+    self.merge!({})
   end
 
-  # ("real string") Now used to print Symbols with colons
-  def __rs
+  # "Real string". It is now used to print Symbols with colons
+  def to_real_string
     return ":#{self.to_s}" if self.class == Symbol
-    self
+    to_s
   end
 
-  def __cs obj
+  def to_colorized_string obj
     color = __colors[obj] || :default
     color != :default ? to_s.send(color) : to_s
   end
 
   private
-
+  
+  
   def __colors
     Cutter::ColoredOutputs.colors_config
   end
 
 end
+
+# def caller_method_name(level = 1)
+#   caller[level][/`([^']*)'/,1].to_sym
+# end
+
 

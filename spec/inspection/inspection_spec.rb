@@ -48,7 +48,7 @@ describe Cutter::Inspection do
     describe "given with binding as arg" do
       let(:output) { 
         capture_stdout do 
-          method_binding "first arg",12345,:test 
+          method_binding "first arg", 12345, :test 
         end
       }
       it_should_behave_like "#inspect! method working right!" 
@@ -89,7 +89,7 @@ describe Cutter::Inspection do
       it { should == "various stuff" }
     end
     
-    describe "given with :inspect option" do
+    describe "given with :self option" do
       Cutter::Inspection.loud!
       class SomeClass
         attr_accessor :test_var
@@ -99,7 +99,7 @@ describe Cutter::Inspection do
         end
 
         def method_inspected *args
-          inspect!(:inspect => true){}
+          inspect!(:self){}
         end
       end
       
@@ -108,9 +108,10 @@ describe Cutter::Inspection do
       end
     
       subject {a.string}
-        it {should match(/SomeClass/)}
-        it {should match(/@test_var/)}
-        it {should match(/I am test var!/)}
+      
+      it {should match(/SomeClass/)}
+      it {should match(/@test_var/)}
+      it {should match(/I am test var!/)}
     end
 
   end 

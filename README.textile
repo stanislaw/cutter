@@ -6,7 +6,9 @@ Include it into Gemfile:
 
 <pre>
 <code>
-gem 'cutter'
+group :development, :test do
+  gem 'cutter'
+end
 </code>
 </pre>
 
@@ -50,13 +52,13 @@ or in more rigorous way:
 
 Gives simple but nice trace for inspection: method's name and args that were passed to method
 
-With :inspect => true we have self#inspect of class to which method belongs to:
+With inspect!(:self) we have self#inspect of class to which method belongs to:
 
 <pre>
 <code>
   def method_self_inspect
     ...
-    inspect!(:inspect => true) {}
+    inspect!(:self) {}
   end
 
   method_self_inspect(1,2,3,4,5) =>
@@ -72,13 +74,13 @@ With :inspect => true we have self#inspect of class to which method belongs to:
 </code>
 </pre>
 
-And finally :level => N gives caller methods chain (N + 1 caller methods):
+And finally :caller gives caller methods chain:
 
 <pre>
 <code>
   def method_caller_chain
     ...
-    inspect!(:level => 2)
+    inspect!(:caller)
   end
 
   method_caller_chain(1,2,3,4,5) => 
