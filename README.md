@@ -10,7 +10,7 @@ group :development, :test do
 end
 ```
 
-## I) #inspect! 
+## I) #inspect! (or #iii as alias)
 
 Insert #inspect! method into any of your methods:
 
@@ -27,9 +27,9 @@ Insert #inspect! method into any of your methods:
   #     your_args: [1, "foo", :bar]
 ```
 
-It gives simple but nice trace for inspection: method's name and args that were passed to method
+It gives simple but nice trace for inspection: method's name and args that were passed to method.
 
-With inspect!(:instance) we also see instance variables:
+With ```inspect!(:instance){}``` we also see instance variables:
 
 ```ruby
   def instance_demo a, b 
@@ -40,14 +40,14 @@ With inspect!(:instance) we also see instance variables:
   # instance_demo 1, 2
   # method: `instance_demo' 
   #   called from class: RSpec::Core::ExampleGroup::Nested_1::Nested_1
-      local_variables: 
-        a: 1
-        b: 2
+  #   local_variables: 
+  #     a: 1
+  #     b: 2
   #   instance_variables: 
-        @instance_var: blip!
+  #     @instance_var: blip!
 ```
 
-With inspect!(:self) we have self#inspect of class to which method belongs to:
+With ```inspect!(:self){}``` we have self#inspect of class to which method belongs to:
 
 ```ruby  
   def method_self_inspect name, *args
@@ -89,7 +89,7 @@ Option :caller gives us caller methods chain:
   #     /home/stanislaw/.rvm/gems/ruby-1.9.2-p180@310/gems/rspec-core-2.6.4/lib/rspec/core/example.rb:48:in `instance_eval'
 ```
 
-And finally inspect!(:max){} produces maximum information: options
+And finally ```inspect!(:max){}``` produces maximum information: options
 :instance, :self, :caller are included + Ruby's ordinary #inspect method
 is called on every variable.
 
@@ -117,9 +117,16 @@ is called on every variable.
 ```
 
 If you want all #inspect! methods fall silent at once, use
-```Cutter::Inspection.quiet!```
+
+```ruby
+Cutter::Inspection.quiet!
+```
+
 To make them sound again do
-```@Cutter::Inspection.loud!```
+
+```ruby
+@Cutter::Inspection.loud!
+```
 
 You can clone it and try 
 
