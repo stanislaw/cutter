@@ -142,6 +142,10 @@ Very! Very simple!
 
 ## II) #stamper
 
+```ruby
+bundle exec rspec spec/stamper/demo_spec.rb
+```
+
 Description is coming...
 
 Acts as self.benchmark{} (in Rails) or Benchmark.measure{} (common Ruby) but with stamps in any position in block executed.
