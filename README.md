@@ -129,6 +129,10 @@ You can clone it and try
 
 Very! Very simple!
 
+### Notes
+1. Instead of #inspect! you can use #iii - just an alias more convenient for typing.
+2. #inspect! uses colorizes its output. If somebody suggests even better color scheme, I will be thankful.
+
 ## II) #stamper
 
 Description is coming...
