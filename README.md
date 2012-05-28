@@ -24,7 +24,7 @@ Insert #inspect! method into any of your methods:
   
   # method `your_method'
   #   variables: 
-  #     args: [1, "foo", :bar]
+  #     your_args: [1, "foo", :bar]
 ```
 
 It gives simple but nice trace for inspection: method's name and args that were passed to method
@@ -32,15 +32,17 @@ It gives simple but nice trace for inspection: method's name and args that were 
 With inspect!(:instance) we also see instance variables:
 
 ```ruby
-  def instance_demo
+  def instance_demo a, b 
     @instance_var = "blip!"
     inspect!(:instance){}
   end
 
+  # instance_demo 1, 2
   # method: `instance_demo' 
   #   called from class: RSpec::Core::ExampleGroup::Nested_1::Nested_1
       local_variables: 
-        args: [1, 2, 3]
+        a: 1
+        b: 2
   #   instance_variables: 
         @instance_var: blip!
 ```
@@ -48,7 +50,7 @@ With inspect!(:instance) we also see instance variables:
 With inspect!(:self) we have self#inspect of class to which method belongs to:
 
 ```ruby  
-  def method_self_inspect
+  def method_self_inspect name, *args
     ...
     inspect!(:self) {}
   end
@@ -68,7 +70,7 @@ With inspect!(:self) we have self#inspect of class to which method belongs to:
 Option :caller gives us caller methods chain:
 
 ```ruby  
-  def method_caller_chain
+  def method_caller_chain name, *args
     ...
     inspect!(:caller)
   end
@@ -96,6 +98,8 @@ is called on every variable.
     inspect!(:max){}
   end
 
+  # maximal(1, :two, "three", :four => 5) =>
+  #
   # method: `maximal' (maximal tracing)
   #   called from class: RSpec::Core::ExampleGroup::Nested_1::Nested_1
   #   local_variables: 
@@ -122,6 +126,7 @@ You can clone it and try
 ```ruby
 @bundle exec rspec spec/inspection/demo_spec.rb@
 ```  
+
 Very! Very simple!
 
 ## II) #stamper
