@@ -16,7 +16,7 @@ Insert #inspect! method into any of your methods:
 
 ```ruby
   def your_method *your_args
-    inspect! {} # this string exactly!    
+    inspect! {} # curly braces are important!    
     ...
   end
 
@@ -27,24 +27,23 @@ Insert #inspect! method into any of your methods:
   #     args: [1, "foo", :bar]
 ```
 
-or in more rigorous way:
+It gives simple but nice trace for inspection: method's name and args that were passed to method
+
+With inspect!(:instance) we also see instance variables:
 
 ```ruby
-  def your_another_method(first, second, third, &block)
-    inspect!(binding)
+  def instance_demo
+    @instance_var = "blip!"
+    inspect!(:instance){}
   end
-  
-  # your_another_method(1,"foo",:bar) => 
-  
-  # method `your_another_method'
-  #   variables: 
-  #     first: 1
-  #     second: "foo"
-  #     third: :bar
-  #     block: 
-```
 
-Gives simple but nice trace for inspection: method's name and args that were passed to method
+  # method: `instance_demo' 
+  #   called from class: RSpec::Core::ExampleGroup::Nested_1::Nested_1
+      local_variables: 
+        args: [1, 2, 3]
+  #   instance_variables: 
+        @instance_var: blip!
+```
 
 With inspect!(:self) we have self#inspect of class to which method belongs to:
 
@@ -66,7 +65,7 @@ With inspect!(:self) we have self#inspect of class to which method belongs to:
   #     #<SelfInspectDemo:0x82be488 @variable="I'm variable">
 ```
 
-And finally :caller gives caller methods chain:
+Option :caller gives us caller methods chain:
 
 ```ruby  
   def method_caller_chain
@@ -86,6 +85,31 @@ And finally :caller gives caller methods chain:
   #     /home/stanislaw/_work_/gems/cutter/spec/inspection/demo_spec.rb:33:in `method_caller_chain'
   #     /home/stanislaw/_work_/gems/cutter/spec/inspection/demo_spec.rb:40:in `block (3 levels) in <top (required)>' 
   #     /home/stanislaw/.rvm/gems/ruby-1.9.2-p180@310/gems/rspec-core-2.6.4/lib/rspec/core/example.rb:48:in `instance_eval'
+```
+
+And finally inspect!(:max){} produces maximum information: options
+:instance, :self, :caller are included + Ruby's ordinary #inspect method
+is called on every variable.
+
+```ruby
+  def maximal
+    inspect!(:max){}
+  end
+
+  # method: `maximal' (maximal tracing)
+  #   called from class: RSpec::Core::ExampleGroup::Nested_1::Nested_1
+  #   local_variables: 
+  #   args: [1, :two, "three", {:four=>5}]
+  #   instance_variables: 
+  #     @example: #<RSpec::Core::Example:0xa1d378 >
+  #     ...
+  #   self inspection:
+  #   #<RSpec::Core::ExampleGroup::Nested_1::Nested_1:0x9e5f8f4
+  #   ...
+  #   caller methods: 
+  #   /home/stanislaw/work/gems/cutter/spec/inspection/demo_spec.rb:28:in `maximal'
+  #   /home/stanislaw/work/gems/cutter/spec/inspection/demo_spec.rb:54:in `block (3 levels) in <top (required)>'
+  #   ...
 ```
 
 If you want all #inspect! methods fall silent at once, use

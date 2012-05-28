@@ -40,6 +40,10 @@ describe 'Cutter::Inspection demonstration!'  do
       end
     end
 
+    def iii_demo *args
+      @instance_var = "blip!"
+      iii(:instance){}
+    end
 
     puts "\nNo specs. Just a demonstration of traces!"
     specify { method_binding 1,2,3,4,5 }
@@ -48,5 +52,6 @@ describe 'Cutter::Inspection demonstration!'  do
     specify { minimal }
     specify { instance_variables_test }
     specify { maximal 1, :two, 'three', {:four => 5} }
+    specify { iii_demo 1, 2, 3 }
   end 
 end
