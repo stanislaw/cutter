@@ -16,8 +16,9 @@ Insert #inspect! method into any of your methods:
 
 ```ruby
   def your_method *your_args
+    # ...
     inspect! {} # curly braces are important!    
-    ...
+    # ...
   end
 
   # your_method(1,"foo",:bar) => 
@@ -32,13 +33,13 @@ It gives simple but nice trace for inspection: method's name and args that were 
 With ```inspect!(:instance){}``` we also see instance variables:
 
 ```ruby
-  def instance_demo a, b 
+  def your_method a, b 
     @instance_var = "blip!"
     inspect!(:instance){}
   end
 
-  # instance_demo 1, 2
-  # method: `instance_demo' 
+  # your_method 1, 2
+  # method: `your_method' 
   #   called from class: RSpec::Core::ExampleGroup::Nested_1::Nested_1
   #   local_variables: 
   #     a: 1
@@ -50,14 +51,14 @@ With ```inspect!(:instance){}``` we also see instance variables:
 With ```inspect!(:self){}``` we have self#inspect of class to which method belongs to:
 
 ```ruby  
-  def method_self_inspect name, *args
+  def your_method name, *args
     # ...
     inspect!(:self) {}
   end
 
-  # method_self_inspect(1,2,3,4,5) =>
+  # your_method(1,2,3,4,5) =>
   
-  # method: `method_self_inspect'
+  # method: `your_method'
   #   called from class: SelfInspectDemo
   #   variables: 
   #     name: 1
@@ -70,21 +71,21 @@ With ```inspect!(:self){}``` we have self#inspect of class to which method belon
 Option :caller gives us caller methods chain:
 
 ```ruby  
-  def method_caller_chain name, *args
+  def your_method name, *args
     # ...
     inspect!(:caller)
   end
 
-  # method_caller_chain(1,2,3,4,5) => 
+  # your_method(1,2,3,4,5) => 
   
-  # method: `method_caller_chain'
+  # method: `your_method'
   #   called from class: RSpec::Core::ExampleGroup::Nested_1::Nested_1
   #   variables: 
   #     name: 1
   #     args: [2, 3, 4, 5]
   #     block: 
   #   caller methods: 
-  #     /home/stanislaw/_work_/gems/cutter/spec/inspection/demo_spec.rb:33:in `method_caller_chain'
+  #     /home/stanislaw/_work_/gems/cutter/spec/inspection/demo_spec.rb:33:in `your_method'
   #     /home/stanislaw/_work_/gems/cutter/spec/inspection/demo_spec.rb:40:in `block (3 levels) in <top (required)>' 
   #     /home/stanislaw/.rvm/gems/ruby-1.9.2-p180@310/gems/rspec-core-2.6.4/lib/rspec/core/example.rb:48:in `instance_eval'
 ```
@@ -94,13 +95,13 @@ And finally ```inspect!(:max){}``` produces maximum information: options
 is called on every variable.
 
 ```ruby
-  def maximal
+  def your_method *args
     inspect!(:max){}
   end
 
   # maximal(1, :two, "three", :four => 5) =>
   #
-  # method: `maximal' (maximal tracing)
+  # method: `your_method' (maximal tracing)
   #   called from class: RSpec::Core::ExampleGroup::Nested_1::Nested_1
   #   local_variables: 
   #     args: [1, :two, "three", {:four=>5}]
@@ -142,14 +143,14 @@ Very! Very simple!
 
 ## II) #stamper
 
-```ruby
-bundle exec rspec spec/stamper/demo_spec.rb
-```
+Acts as benchmark{} in Rails or Benchmark.measure{} (common Ruby) but with stamps in any position in block executed.
+It is much simpler to write it quickly than all these Measure-dos.
 
 Description is coming...
 
-Acts as self.benchmark{} (in Rails) or Benchmark.measure{} (common Ruby) but with stamps in any position in block executed.
-It is much simpler to write it quickly than all these Measure-dos.
+```ruby
+bundle exec rspec spec/stamper/demo_spec.rb
+```
 
 ## Contributors
 
