@@ -10,7 +10,7 @@ group :development, :test do
 end
 ```
 
-## I) #inspect! (or #iii as alias)
+## I) #inspect! (or #iii - it is an alias)
 
 Insert #inspect! method into any of your methods:
 
@@ -51,7 +51,7 @@ With ```inspect!(:self){}``` we have self#inspect of class to which method belon
 
 ```ruby  
   def method_self_inspect name, *args
-    ...
+    # ...
     inspect!(:self) {}
   end
 
@@ -71,7 +71,7 @@ Option :caller gives us caller methods chain:
 
 ```ruby  
   def method_caller_chain name, *args
-    ...
+    # ...
     inspect!(:caller)
   end
 
@@ -125,20 +125,20 @@ Cutter::Inspection.quiet!
 To make them sound again do
 
 ```ruby
-@Cutter::Inspection.loud!
+Cutter::Inspection.loud!
 ```
 
 You can clone it and try 
 
 ```ruby
-@bundle exec rspec spec/inspection/demo_spec.rb@
+bundle exec rspec spec/inspection/demo_spec.rb
 ```  
 
 Very! Very simple!
 
 ### Notes
 1. Instead of #inspect! you can use #iii - just an alias more convenient for typing.
-2. #inspect! uses colorizes its output. If somebody suggests even better color scheme, I will be thankful.
+2. #inspect! colorizes its output. If somebody suggests even better color scheme, I will be thankful.
 
 ## II) #stamper
 
