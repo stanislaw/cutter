@@ -1,8 +1,5 @@
-require 'active_support'
 require 'spec_helper'
-
 require 'stringio'
-require 'active_support'
 
 # http://thinkingdigitally.com/archive/capturing-output-from-puts-in-ruby/
 

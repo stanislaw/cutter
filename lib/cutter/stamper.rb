@@ -1,5 +1,3 @@
-require 'active_support/core_ext/string/inflections.rb'
-
 class Object
   def time_now
     Time.now.strftime("%s%L").to_i
@@ -104,7 +102,7 @@ module Cutter
 
     def stamp lbl = nil
       return if Stamper.off?
-      message = messages[lbl] || lbl.to_s.humanize
+      message = messages[lbl] || lbl.to_s
       time_passed = time_now - time_initial
       print "  " * nindent
       printf("stamp: %7d ms   #{message}\n", time_passed)

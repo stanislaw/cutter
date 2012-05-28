@@ -31,7 +31,7 @@ stamper :testing_method do |tm|
     sleep 0.2
     i.stamp :first
     sleep 0.2
-    i.stamp
+    i.stamp "Stamp with custom text"
   end
   tm.stamp :_2
 end
