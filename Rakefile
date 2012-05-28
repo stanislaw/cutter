@@ -12,6 +12,11 @@ end
 require 'rake'
 
 require 'jeweler'
+
+$:.unshift(File.expand_path('../lib', __FILE__))
+
+require 'cutter'
+
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "cutter"
@@ -22,6 +27,7 @@ Jeweler::Tasks.new do |gem|
   gem.email = "s.pankevich@gmail.com"
   gem.authors = ["stanislaw"]
   gem.files = Dir["{lib}/**/*"]
+  gem.version = Cutter::VERSION
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new
@@ -35,7 +41,7 @@ end
 
 task :default => :test
 
-require 'rake/rdoctask'
+require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
