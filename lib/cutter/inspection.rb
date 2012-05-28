@@ -96,10 +96,6 @@ class Object
 
   protected
 
-  def maximize_options!
-    self.merge!({})
-  end
-
   # "Real string". It is now used to print Symbols with colons
   def to_real_string
     return ":#{self.to_s}" if self.class == Symbol
@@ -107,17 +103,24 @@ class Object
   end
 
   def to_colorized_string obj
-    color = __colors[obj] || :default
+    colors = Cutter::ColoredOutputs.colors_config
+    color = colors[obj] || :default
     color != :default ? to_s.send(color) : to_s
   end
+end
 
-  private
-  
-  
-  def __colors
-    Cutter::ColoredOutputs.colors_config
+class Object
+  def rrr object = nil
+    raise object.inspect
   end
 
+  def ppp object = nil 
+    puts object.inspect
+  end
+
+  def lll object = nil
+    Rails.logger.info object.inspect
+  end if defined? Rails
 end
 
 # def caller_method_name(level = 1)
