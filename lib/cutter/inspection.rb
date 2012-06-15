@@ -43,8 +43,11 @@ class Object
     # Basic info
     method_name = eval('__method__', _binding)
     class_name = eval('self.class', _binding)
-    
+    src = method(method_name.to_sym).source_location
+
     puts "\n%s `%s' %s" % ['method:'.to_colorized_string(:method), method_name.to_colorized_string(:method_name), ('(maximal tracing)' if max)]
+    puts "  %s %s:%s" % ['source:', src[0], src[1]]
+   
     puts "  %s %s" % ['called from class:'.to_colorized_string(:called_from), class_name.to_colorized_string(:class_name)]
 
     # Local Variables
