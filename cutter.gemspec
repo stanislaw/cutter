@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["stanislaw"]
   s.date = "2012-05-28"
-  s.description = "longer description of your gem"
+  s.description = "Ruby tracing gem"
   s.email = "s.pankevich@gmail.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -27,7 +27,7 @@ Gem::Specification.new do |s|
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
   s.rubygems_version = "1.8.19"
-  s.summary = "one-line summary of your gem"
+  s.summary = "Ruby tracing gem"
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
