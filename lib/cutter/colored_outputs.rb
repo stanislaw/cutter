@@ -43,6 +43,10 @@ module Cutter
                       :class_name => :light_green,
                       :method => :red,
                       :method_name => :yellow,
+                      
+                      # :source => :white,
+                      # :source_path => :white,
+                      # :source_number => :white,
                       # :lv => :blue,
                       # :lv_names => :magenta,
                       # :lv_values => :light_red,

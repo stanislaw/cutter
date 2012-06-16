@@ -43,10 +43,14 @@ class Object
     # Basic info
     method_name = eval('__method__', _binding)
     class_name = eval('self.class', _binding)
-    src = method(method_name.to_sym).source_location
+
+    if (meth = method(method_name.to_sym)).respond_to? :source_location
+      source_path, source_number = meth.source_location
+    end
 
     puts "\n%s `%s' %s" % ['method:'.to_colorized_string(:method), method_name.to_colorized_string(:method_name), ('(maximal tracing)' if max)]
-    puts "  %s %s:%s" % ['source:', src[0], src[1]]
+
+    puts "  %s %s:%s" % ['source:'.to_colorized_string(:source), source_path.dup.to_colorized_string(:source_path), source_number.to_s.to_colorized_string(:source_number)] if source_path && source_number
    
     puts "  %s %s" % ['called from class:'.to_colorized_string(:called_from), class_name.to_colorized_string(:class_name)]
 
