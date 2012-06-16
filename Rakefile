@@ -22,8 +22,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "cutter"
   gem.homepage = "http://github.com/stanislaw/cutter"
   gem.license = "MIT"
-  gem.summary = %Q{one-line summary of your gem}
-  gem.description = %Q{longer description of your gem}
+  gem.summary = %Q{Ruby tracing gem}
+  gem.description = %Q{Ruby tracing gem}
   gem.email = "s.pankevich@gmail.com"
   gem.authors = ["stanislaw"]
   gem.files = Dir["{lib}/**/*"]
