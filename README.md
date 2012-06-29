@@ -2,6 +2,20 @@
 
 Two-methods-gem I use a lot for simple debugging & performance measuring purposes.
 
+```#inspect``` method shines when doing reverse engineering, it is especially useful, when it is needed to quickly hack on someone else's code. Also, it is very easy to become 'someone else' for self, when dealing with own code, if it was written very long time ago.
+
+Besides that ```#stamper``` allows doing some performance measuments in a handy manner, it can be used to create quick and neat demonstrations of how particular pieces of Ruby code perform. 
+
+The one interesting possible usage of ```#stamper``` is to optimize performance of templates on Rails View layer, because it often takes a large (compared to M and C layers) load impact because of Rails lazy-evaluation mechanisms.
+
+[![Build Status](https://secure.travis-ci.org/stanislaw/cutter.png)](http://travis-ci.org/stanislaw/cutter)
+
+## Prerequisites
+
+It works on 1.8.7, 1.9.3, JRuby and Rubinius
+
+## Installiation
+
 Include it into Gemfile:
 
 ```ruby
@@ -10,14 +24,20 @@ group :development, :test do
 end
 ```
 
-## I) #inspect! (or #iii - it is an alias)
+## Cutter::Inspection
+### I) #inspect!
 
 Insert #inspect! method into any of your methods:
 
 ```ruby
   def your_method *your_args
     # ...
+    
     inspect! {} # curly braces are important!    
+    
+    # or 
+    # iii {} as an alias
+    
     # ...
   end
 
@@ -90,9 +110,7 @@ Option :caller gives us caller methods chain:
   #     /home/stanislaw/.rvm/gems/ruby-1.9.2-p180@310/gems/rspec-core-2.6.4/lib/rspec/core/example.rb:48:in `instance_eval'
 ```
 
-And finally ```inspect!(:max){}``` produces maximum information: options
-:instance, :self, :caller are included + Ruby's ordinary #inspect method
-is called on every variable.
+And finally ```inspect!(:max) {}``` produces maximum information: options ```:instance```, ```:self```, ```:caller``` are included and **Ruby's ordinary ```#inspect``` method is called on every variable**.
 
 ```ruby
   def your_method *args
@@ -129,27 +147,128 @@ To make them sound again do
 Cutter::Inspection.loud!
 ```
 
-You can clone it and try 
+### Three-letters methods
 
 ```ruby
-bundle exec rspec spec/inspection/demo_spec.rb
-```  
+class Object
+  def rrr object = nil
+    raise object.inspect
+  end
 
-Very! Very simple!
+  def ppp object = nil
+    puts object.inspect
+  end
 
-### Notes
-1. Instead of #inspect! you can use #iii - just an alias more convenient for typing.
-2. #inspect! colorizes its output. If somebody suggests even better color scheme, I will be thankful.
+  def lll object = nil
+    Rails.logger.info object.inspect
+  end if defined? Rails
+end
+```
 
-## II) #stamper
+### #iii
 
-Acts as benchmark{} in Rails or Benchmark.measure{} (common Ruby) but with stamps in any position in block executed.
-It is much simpler to write it quickly than all these Measure-dos.
+Instead of #inspect! you can use #iii - just an alias more convenient for typing. Finally, you have a group of 4 three-letters methods in your every day debugging workflow.
 
-Description is coming...
+## II) Cutter::Stamper
+
+Acts as ```benchmark {}``` in Rails or ```Benchmark.measure {}``` (common Ruby) but with stamps in any position in block executed.
+
+It is much simpler to write Stamper with Stamps than all these Measure-dos.
+
+### Minimal stamper
+
+```stamp!``` method is just an alias for ```stamp```, use whatever you like.
 
 ```ruby
-bundle exec rspec spec/stamper/demo_spec.rb
+puts "Minimal stamper"
+stamper do |s|
+  stamp
+  sleep 0.2
+  stamp!
+  sleep 0.2
+  stamp!
+end
+```
+
+Will produce:
+
+```text
+Minimal stamper
+
+no name
+-------
+  stamp:       0 ms   
+  stamp:     200 ms   
+  stamp:     400 ms   
+-------
+  400ms
+```
+
+### Stamper with named stamps
+
+```ruby
+puts "Now with named stamps"
+
+Cutter::Stamper.scope :testing_method => "Demonstration of named stamping" do |tm|
+  tm.msg _1: "first piece"
+  tm.msg _2: "second piece"
+end
+
+Cutter::Stamper.scope :inner_scope => "Now internal things" do |i|
+  i.msg first: "I'm the first inner stamp"
+end
+
+stamper :testing_method do |tm|
+  sleep 0.3
+  tm.stamp! :_1
+  sleep 0.3
+  stamper :inner_scope do |i|
+    sleep 0.2
+    i.stamp! :first
+    sleep 0.2
+    i.stamp! "Stamp with custom text"
+  end
+  tm.stamp! :_2
+end
+```
+
+will result in
+
+```text
+Now with named stamps
+
+Demonstration of named stamping
+-------------------------------
+  stamp:     300 ms   first piece
+
+    Now internal things
+    -------------------
+    stamp:     201 ms   I'm the first inner stamp
+    stamp:     401 ms   Stamp with custom text
+    -------------------
+                  401ms
+
+  stamp:    1001 ms   second piece
+-------------------------------
+                         1001ms
+```
+
+## Notes
+
+* Both #inspect! and #stamper method colorize their output. You can see ```lib/cutter/colored_output.rb``` file to understand how it is done. I will really appreciate any suggestions of how current color scheme can be improved.
+
+## Specs and demos
+
+Specs are just
+
+```ruby
+rake
+```
+
+See demos
+
+```ruby
+rake demo
 ```
 
 ## Contributors
