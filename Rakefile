@@ -10,7 +10,6 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 require 'rake'
-
 require 'jeweler'
 
 $:.unshift(File.expand_path('../lib', __FILE__))
@@ -32,7 +31,6 @@ Jeweler::Tasks.new do |gem|
 end
 Jeweler::RubygemsDotOrgTasks.new
 
-
 require 'rspec/core'
 require 'rspec/core/rake_task'
 RSpec::Core::RakeTask.new(:spec) do |spec|
@@ -40,6 +38,11 @@ RSpec::Core::RakeTask.new(:spec) do |spec|
 end
 
 task :default => :spec
+
+desc "Run demos"
+task :demo do
+  system %[ bundle exec rspec spec/demo/*.rb ]
+end
 
 require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
