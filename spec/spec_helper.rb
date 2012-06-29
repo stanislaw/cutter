@@ -1,2 +1,2 @@
-require 'rspec'
+require 'rspec/core'
 require 'cutter'

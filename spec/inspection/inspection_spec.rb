@@ -6,14 +6,16 @@ module Kernel
   def capture_stdout
     out = StringIO.new
     $stdout = out
+
     yield
-    return out
-    ensure
+
+    out
+  ensure
     $stdout = STDOUT
   end
 end
 
-shared_examples_for "#inspect! method working right!" do
+shared_examples_for "#inspect! method" do
   it "should print name of the function and its local variables" do
     Cutter::Inspection.loud!
     result = output.string
@@ -51,7 +53,7 @@ describe Cutter::Inspection do
           method_binding "first arg", 12345, :test 
         end
       }
-      it_should_behave_like "#inspect! method working right!" 
+      it_should_behave_like "#inspect! method" 
     end
 
     describe "given with block" do
@@ -61,7 +63,7 @@ describe Cutter::Inspection do
         end
       }
       
-      it_should_behave_like "#inspect! method working right!"
+      it_should_behave_like "#inspect! method"
       
       subject { method_block "first arg", 12345, :test }
       it { should == ("Return value")}

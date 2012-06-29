@@ -5,15 +5,8 @@ gem "colorize", ">= 0.5"
 
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
-group :development do
+group :development, :test do
   gem 'bundler'
   gem 'jeweler'
+  gem 'rspec'
 end
-
-group :test do
-  gem "rspec"
-end
-
-group :development, :test do
-end
-
