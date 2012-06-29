@@ -18,7 +18,7 @@ end
 
 class Object
   
-  # #inspect! may be called inside any method as 'inspect! {}' or more rigorous: 'inspect!(binding)'
+  # #inspect! may be called inside any method as 'inspect! {}' or more rigorously as 'inspect!(binding)'
   # Binding is a Ruby class: http://www.ruby-doc.org/core/classes/Binding.html
   
   def inspect! *options, &block
@@ -28,7 +28,7 @@ class Object
     _binding = options.first if options.first.class == Binding
     raise ArgumentError, "Try inspect(binding) or inspect! {}", caller if (!block_given? && !_binding)
     _binding ||= block.binding
-    
+
     max = true if options.include? :max
     options << :instance << :max << :self << :caller if max
     options.uniq!
