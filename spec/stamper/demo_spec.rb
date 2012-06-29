@@ -5,11 +5,11 @@ puts "\n== #stamper and #stamp methods demonstration ==\n".red
 
 puts "The most basic usage"
 stamper do |s|
-  s.stamp
+  stamp
   sleep 0.2
-  s.stamp
+  stamp
   sleep 0.2
-  s.stamp
+  stamp
 end
 
 puts "Now with named stamps"

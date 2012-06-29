@@ -7,9 +7,11 @@ module Kernel
   def capture_stdout
     out = StringIO.new
     $stdout = out
+
     yield
-    return out
-    ensure
+
+    out
+  ensure
     $stdout = STDOUT
   end
 end
@@ -25,27 +27,47 @@ Cutter::Stamper.colors do |colors|
   colors[:stamp] = :green
 end
 
-describe "Stamper" do 
-
-  def test_method
+class Context
+  def test_method &block
     stamper :stan do |s|
-      s.stamp :_1
+      stamp :_1
       sleep 0.1
-      s.stamp :_2
+      stamp :_2
       sleep 0.1
-      s.stamp :_3
+      yield if block
+      stamp :_3
       sleep 0.1
     end
   end
+end
+
+describe "Stamper" do 
 
   it "does stamps" do
     out = capture_stdout do 
-      test_method
+      Context.new.test_method
     end
     result = out.string
     result.should match(/testing test_method/)
     result.should match(/stamp1/)
     result.should match(/stamp2/)
     result.should match(/stamp3/)
+  end
+
+  it "should define #stamp! method in the context #stamper was called" do
+    out = capture_stdout do
+      context = Context.new
+      context.test_method do
+        context.should respond_to :stamp
+      end
+    end
+  end
+  
+  it "should undefine #stamp! method after the context #stamper was called was run" do
+    out = capture_stdout do
+      context = Context.new
+      context.test_method
+      context.should_not respond_to :stamp
+    end
   end
 end

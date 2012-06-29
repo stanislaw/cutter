@@ -20,7 +20,19 @@ class Object
     log_coloured spaces, "#{'-'*message.length}", color(:message_line)
 
     scope.time_initial = time_now
+    
+    instance_eval do
+      self.class.send :define_method, :stamp do |lbl = nil|
+        scope.stamp lbl
+      end
+    end
+
     yield scope
+    
+    instance_eval do
+      undef :stamp if respond_to? :stamp
+    end
+
     scope.indent -= 1 if scope.indent > 0
     stamper_class.pop
     time_passed = time_now - scope.time_initial
@@ -107,6 +119,7 @@ module Cutter
       print "  " * nindent
       printf("stamp: %7d ms   #{message}\n", time_passed)
     end
+    alias_method :stamp!, :stamp
 
     module ClassMethods
 
