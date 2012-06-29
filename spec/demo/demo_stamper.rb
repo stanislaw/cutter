@@ -1,9 +1,8 @@
 require 'spec_helper'
-require 'colorize'
 
 puts "\n== #stamper and #stamp methods demonstration ==\n".red
 
-puts "The most basic usage"
+puts "Minimal stamper"
 stamper do |s|
   stamp
   sleep 0.2
