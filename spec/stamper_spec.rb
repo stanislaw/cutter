@@ -54,20 +54,24 @@ describe Cutter::Stamper do
     result.should match(/stamp3/)
   end
 
-  it "should define #stamp! helper method in the context #stamper was called" do
-    out = capture_stdout do
-      context = Context.new
-      context.test_method do
-        context.should respond_to :stamp
+  [:stamp, :stamp!].each do |meth|
+    describe "##{meth}" do 
+      it "should define ##{meth} helper method in the context #stamper was called" do
+        out = capture_stdout do
+          context = Context.new
+          context.test_method do
+            context.should respond_to meth
+          end
+        end
       end
-    end
-  end
 
-  it "should undefine #stamp! helper method after the context #stamper was called was run" do
-    out = capture_stdout do
-      context = Context.new
-      context.test_method
-      context.should_not respond_to :stamp
+      it "should undefine ##{meth} helper method after the context #stamper was called was run" do
+        out = capture_stdout do
+          context = Context.new
+          context.test_method
+          context.should_not respond_to :meth
+        end
+      end
     end
   end
 end

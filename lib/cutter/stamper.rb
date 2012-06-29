@@ -24,11 +24,13 @@ class Object
     self.class.send :define_method, :stamp do |lbl = nil|
       scope.stamp lbl
     end
-
+    self.class.send :alias_method, :stamp!, :stamp
+    
     yield scope
 
     instance_eval do
       undef :stamp if respond_to? :stamp
+      undef :stamp! if respond_to? :stamp!
     end
 
     scope.indent -= 1 if scope.indent > 0

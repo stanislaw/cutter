@@ -4,11 +4,11 @@ puts "\n== #stamper and #stamp methods demonstration ==\n".red
 
 puts "Minimal stamper"
 stamper do |s|
-  stamp
+  stamp!
   sleep 0.2
-  stamp
+  stamp!
   sleep 0.2
-  stamp
+  stamp!
 end
 
 puts "Now with named stamps"
@@ -24,16 +24,15 @@ end
 
 stamper :testing_method do |tm|
   sleep 0.3
-  tm.stamp :_1
+  tm.stamp! :_1
   sleep 0.3
   stamper :inner_scope do |i|
     sleep 0.2
-    i.stamp :first
+    i.stamp! :first
     sleep 0.2
-    i.stamp "Stamp with custom text"
+    i.stamp! "Stamp with custom text"
   end
-  tm.stamp :_2
+  tm.stamp! :_2
 end
 
 puts "\n== #stamper and #stamp methods demonstration ENDS! ==\n".red
-
