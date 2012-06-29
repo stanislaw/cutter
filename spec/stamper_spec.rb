@@ -41,10 +41,10 @@ class Context
   end
 end
 
-describe Cutter::Stamper do 
+describe Cutter::Stamper do
 
   it "should produce stamps" do
-    out = capture_stdout do 
+    out = capture_stdout do
       Context.new.test_method
     end
     result = out.string
@@ -62,7 +62,7 @@ describe Cutter::Stamper do
       end
     end
   end
-  
+
   it "should undefine #stamp! helper method after the context #stamper was called was run" do
     out = capture_stdout do
       context = Context.new

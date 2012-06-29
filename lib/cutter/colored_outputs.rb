@@ -1,6 +1,6 @@
 require 'colorize'
 class Object
-  
+
   def line sp = ""
     log_coloured sp, "------------------------------", color(:line)
   end
@@ -30,20 +30,20 @@ module Cutter
 
       def colors_config
         @colors ||= {
-                      :line => :blue, 
+                      :line => :blue,
                       :time => :light_blue,
 
                       :message_name => :cyan,
                       :message_line => :cyan,
                       :total_line => :yellow,
                       :total_count => :yellow,
-                     
+
                       # Colors for #inspect!
                       #  :called_from => :light_magenta,
                       :class_name => :light_green,
                       :method => :red,
                       :method_name => :yellow,
-                      
+
                       # :source => :white,
                       # :source_path => :white,
                       # :source_number => :white,

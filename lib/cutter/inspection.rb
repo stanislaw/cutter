@@ -17,10 +17,10 @@ module Cutter
 end
 
 class Object
-  
+
   # #inspect! may be called inside any method as 'inspect! {}' or more rigorously as 'inspect!(binding)'
   # Binding is a Ruby class: http://www.ruby-doc.org/core/classes/Binding.html
-  
+
   def inspect! *options, &block
     return true if Cutter::Inspection.quiet?
 
@@ -32,12 +32,12 @@ class Object
     max = true if options.include? :max
     options << :instance << :max << :self << :caller if max
     options.uniq!
- 
+
     iv = true if options.include? :instance
 
     # Want caller methods chain to be traced? - pass option :caller to #inspect!
     _caller = true if options.include? :caller
-   
+
     self_inspection = eval('self.inspect', _binding) if options.include? :self
 
     # Basic info
@@ -51,7 +51,7 @@ class Object
     puts "\n%s `%s' %s" % ['method:'.to_colorized_string(:method), method_name.to_colorized_string(:method_name), ('(maximal tracing)' if max)]
 
     puts "  %s %s:%s" % ['source:'.to_colorized_string(:source), source_path.dup.to_colorized_string(:source_path), source_number.to_s.to_colorized_string(:source_number)] if source_path && source_number
-   
+
     puts "  %s %s" % ['called from class:'.to_colorized_string(:called_from), class_name.to_colorized_string(:class_name)]
 
     # Local Variables
@@ -62,24 +62,24 @@ class Object
       local_variable = eval(lv.to_s, _binding)
       local_variable = (max ? local_variable.inspect : local_variable.to_real_string)
 
-      puts "    %s: %s" % [lv.to_colorized_string(:lv_names), local_variable.to_colorized_string(:lv_values)] 
+      puts "    %s: %s" % [lv.to_colorized_string(:lv_names), local_variable.to_colorized_string(:lv_values)]
     end if lvb
 
     # Instance Variables
     begin
       ivb = eval('instance_variables',_binding)
-      
+
       puts "  %s %s" % ["instance_variables:".to_colorized_string(:iv), ("[]" if ivb.empty?)]
-      
+
       ivb.map do |iv|
         instance_variable = eval(iv.to_s, _binding)
         instance_variable = (max ? instance_variable.inspect : instance_variable.to_real_string)
-       
-        puts "    %s: %s" % [iv.to_colorized_string(:iv_names), instance_variable.to_colorized_string(:iv_values)] 
+
+        puts "    %s: %s" % [iv.to_colorized_string(:iv_names), instance_variable.to_colorized_string(:iv_values)]
       end if ivb
     end if iv
 
-    # Self inspection 
+    # Self inspection
     begin
       puts "  self inspection:".to_colorized_string(:self_inspection)
       puts "  %s" % self_inspection.to_colorized_string(:self_inspection_trace)
@@ -92,9 +92,9 @@ class Object
         puts "  %s" % meth.to_colorized_string(:caller_method)
       end
     end if _caller
-   
+
     puts "\n"
-    
+
     # Yield mysterious things if they exist in block.
     yield if block_given?
   end
@@ -121,7 +121,7 @@ class Object
     raise object.inspect
   end
 
-  def ppp object = nil 
+  def ppp object = nil
     puts object.inspect
   end
 

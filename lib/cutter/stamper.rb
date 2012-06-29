@@ -20,15 +20,13 @@ class Object
     log_coloured spaces, "#{'-'*message.length}", color(:message_line)
 
     scope.time_initial = time_now
-    
-    instance_eval do
-      self.class.send :define_method, :stamp do |lbl = nil|
-        scope.stamp lbl
-      end
+
+    self.class.send :define_method, :stamp do |lbl = nil|
+      scope.stamp lbl
     end
 
     yield scope
-    
+
     instance_eval do
       undef :stamp if respond_to? :stamp
     end
@@ -36,7 +34,7 @@ class Object
     scope.indent -= 1 if scope.indent > 0
     stamper_class.pop
     time_passed = time_now - scope.time_initial
-   
+
     tps = "#{time_passed}ms"
     offset = message.length - tps.length
     offset = 0 if offset < 0
@@ -50,7 +48,7 @@ class Object
   def color type
     stamper_class.colors_config[type] if stamper_class.colors?
   end
-   
+
   def stamper_class
     Cutter::Stamper
   end

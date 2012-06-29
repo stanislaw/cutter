@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'stringio'
-describe 'Cutter::Inspection demonstration!'  do 
+describe 'Cutter::Inspection demonstration!'  do
 
   describe "#inspect" do
     def method_binding first, second, *more
@@ -53,5 +53,5 @@ describe 'Cutter::Inspection demonstration!'  do
     specify { instance_variables_test }
     specify { maximal 1, :two, 'three', {:four => 5} }
     specify { iii_demo 1, 2, 3 }
-  end 
+  end
 end
