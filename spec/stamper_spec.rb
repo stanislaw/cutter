@@ -17,9 +17,9 @@ module Kernel
 end
 
 Cutter::Stamper.scope :stan => "testing test_method" do |stan|
-  stan.msg _1: 'stamp1'
-  stan.msg _2: 'stamp2'
-  stan.msg _3: 'stamp3'
+  stan.msg :_1 => 'stamp1'
+  stan.msg :_2 => 'stamp2'
+  stan.msg :_3 => 'stamp3'
 end
 
 Cutter::Stamper.colors do |colors|

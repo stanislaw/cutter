@@ -14,12 +14,12 @@ end
 puts "Now with named stamps"
 
 Cutter::Stamper.scope :testing_method => "Demonstration of named stamping" do |tm|
-  tm.msg _1: "first piece"
-  tm.msg _2: "second piece"
+  tm.msg :_1 => "first piece"
+  tm.msg :_2 => "second piece"
 end
 
 Cutter::Stamper.scope :inner_scope => "Now internal things" do |i|
-  i.msg first: "I'm the first inner stamp"
+  i.msg :first => "I'm the first inner stamp"
 end
 
 stamper :testing_method do |tm|

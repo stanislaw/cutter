@@ -105,8 +105,12 @@ class Object
 
   # "Real string". It is now used to print Symbols with colons
   def __real_to_s__
-    return ":#{self.to_s}" if self.class == Symbol
-    to_s
+    case self
+    when Symbol, Array, Hash
+      inspect
+    else
+      to_s
+    end
   end
 end
 

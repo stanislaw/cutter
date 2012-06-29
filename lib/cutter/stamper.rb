@@ -21,8 +21,8 @@ class Object
 
     scope.time_initial = time_now
 
-    self.class.send :define_method, :stamp do |lbl = nil|
-      scope.stamp lbl
+    self.class.send :define_method, :stamp do |*args|
+      scope.stamp args.first
     end
     self.class.send :alias_method, :stamp!, :stamp
     
