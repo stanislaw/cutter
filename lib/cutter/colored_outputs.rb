@@ -1,5 +1,11 @@
 require 'colorize'
+
 class Object
+  def __colorize__ obj
+    colors = Cutter::ColoredOutputs.colors_config
+    color = colors[obj] || :default
+    color != :default ? to_s.send(color) : to_s
+  end
 
   def line sp = ""
     log_coloured sp, "------------------------------", color(:line)
@@ -30,6 +36,7 @@ module Cutter
 
       def colors_config
         @colors ||= {
+                      # Colors for #stamper
                       :line => :blue,
                       :time => :light_blue,
 
@@ -40,6 +47,7 @@ module Cutter
 
                       # Colors for #inspect!
                       #  :called_from => :light_magenta,
+
                       :class_name => :light_green,
                       :method => :red,
                       :method_name => :yellow,

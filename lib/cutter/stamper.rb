@@ -16,8 +16,8 @@ class Object
     end
     spaces = "    " * scope.indent
     puts "\n"
-    log_coloured spaces, "#{message}", color(:message_name)
-    log_coloured spaces, "#{'-'*message.length}", color(:message_line)
+    log_coloured spaces, "#{message}", __color__(:message_name)
+    log_coloured spaces, "#{'-'*message.length}", __color__(:message_line)
 
     scope.time_initial = time_now
 
@@ -40,14 +40,14 @@ class Object
     tps = "#{time_passed}ms"
     offset = message.length - tps.length
     offset = 0 if offset < 0
-    log_coloured spaces, "#{'-'*message.length}", color(:total_line)
-    log_coloured spaces + "#{' ' * (offset)}", tps, color(:total_count)
+    log_coloured spaces, "#{'-'*message.length}", __color__(:total_line)
+    log_coloured spaces + "#{' ' * (offset)}", tps, __color__(:total_count)
     puts "\n"
   end
 
   private
 
-  def color type
+  def __color__ type
     stamper_class.colors_config[type] if stamper_class.colors?
   end
 

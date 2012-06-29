@@ -48,48 +48,48 @@ class Object
       source_path, source_number = meth.source_location
     end
 
-    puts "\n%s `%s' %s" % ['method:'.to_colorized_string(:method), method_name.to_colorized_string(:method_name), ('(maximal tracing)' if max)]
+    puts "\n%s `%s' %s" % ['method:'.__colorize__(:method), method_name.__colorize__(:method_name), ('(maximal tracing)' if max)]
 
-    puts "  %s %s:%s" % ['source:'.to_colorized_string(:source), source_path.dup.to_colorized_string(:source_path), source_number.to_s.to_colorized_string(:source_number)] if source_path && source_number
+    puts "  %s %s:%s" % ['source_location:'.__colorize__(:source), source_path.dup.__colorize__(:source_path), source_number.to_s.__colorize__(:source_number)] if source_path && source_number
 
-    puts "  %s %s" % ['called from class:'.to_colorized_string(:called_from), class_name.to_colorized_string(:class_name)]
+    puts "  %s %s" % ['called from class:'.__colorize__(:called_from), class_name.__colorize__(:class_name)]
 
     # Local Variables
     lvb = eval('local_variables',_binding)
-    puts "  %s %s" % ['local_variables:'.to_colorized_string(:lv), ("[]" if lvb.empty?)]
+    puts "  %s %s" % ['local_variables:'.__colorize__(:lv), ("[]" if lvb.empty?)]
 
     lvb.map do |lv|
       local_variable = eval(lv.to_s, _binding)
-      local_variable = (max ? local_variable.inspect : local_variable.to_real_string)
+      local_variable = (max ? local_variable.inspect : local_variable.__real_to_s__)
 
-      puts "    %s: %s" % [lv.to_colorized_string(:lv_names), local_variable.to_colorized_string(:lv_values)]
+      puts "    %s: %s" % [lv.__colorize__(:lv_names), local_variable.__colorize__(:lv_values)]
     end if lvb
 
     # Instance Variables
     begin
       ivb = eval('instance_variables',_binding)
 
-      puts "  %s %s" % ["instance_variables:".to_colorized_string(:iv), ("[]" if ivb.empty?)]
+      puts "  %s %s" % ["instance_variables:".__colorize__(:iv), ("[]" if ivb.empty?)]
 
       ivb.map do |iv|
         instance_variable = eval(iv.to_s, _binding)
-        instance_variable = (max ? instance_variable.inspect : instance_variable.to_real_string)
+        instance_variable = (max ? instance_variable.inspect : instance_variable.__real_to_s__)
 
-        puts "    %s: %s" % [iv.to_colorized_string(:iv_names), instance_variable.to_colorized_string(:iv_values)]
+        puts "    %s: %s" % [iv.__colorize__(:iv_names), instance_variable.__colorize__(:iv_values)]
       end if ivb
     end if iv
 
     # Self inspection
     begin
-      puts "  self inspection:".to_colorized_string(:self_inspection)
-      puts "  %s" % self_inspection.to_colorized_string(:self_inspection_trace)
+      puts "  self inspection:".__colorize__(:self_inspection)
+      puts "  %s" % self_inspection.__colorize__(:self_inspection_trace)
     end if self_inspection
 
     # Caller methods chain
     begin
-      puts "  caller methods: ".to_colorized_string(:caller_methods)
+      puts "  caller methods: ".__colorize__(:caller_methods)
       caller.each do |meth|
-        puts "  %s" % meth.to_colorized_string(:caller_method)
+        puts "  %s" % meth.__colorize__(:caller_method)
       end
     end if _caller
 
@@ -104,15 +104,9 @@ class Object
   protected
 
   # "Real string". It is now used to print Symbols with colons
-  def to_real_string
+  def __real_to_s__
     return ":#{self.to_s}" if self.class == Symbol
     to_s
-  end
-
-  def to_colorized_string obj
-    colors = Cutter::ColoredOutputs.colors_config
-    color = colors[obj] || :default
-    color != :default ? to_s.send(color) : to_s
   end
 end
 
