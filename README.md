@@ -27,7 +27,7 @@ end
 ## Cutter::Inspection
 ### I) #inspect!
 
-Insert #inspect! method into any of your methods:
+Insert ```#inspect!``` method into any of your methods:
 
 ```ruby
   def your_method *your_args
@@ -50,12 +50,12 @@ Insert #inspect! method into any of your methods:
 
 It gives simple but nice trace for inspection: method's name and args that were passed to method.
 
-With ```inspect!(:instance){}``` we also see instance variables:
+With ```inspect!(:instance) {}``` we also see instance variables:
 
 ```ruby
   def your_method a, b 
     @instance_var = "blip!"
-    inspect!(:instance){}
+    inspect!(:instance) {}
   end
 
   # your_method 1, 2
@@ -68,7 +68,7 @@ With ```inspect!(:instance){}``` we also see instance variables:
   #     @instance_var: blip!
 ```
 
-With ```inspect!(:self){}``` we have self#inspect of class to which method belongs to:
+With ```inspect!(:self) {}``` we have ```self#inspect``` of class to which method belongs to:
 
 ```ruby  
   def your_method name, *args
@@ -88,12 +88,12 @@ With ```inspect!(:self){}``` we have self#inspect of class to which method belon
   #     #<SelfInspectDemo:0x82be488 @variable="I'm variable">
 ```
 
-Option :caller gives us caller methods chain:
+Option ```:caller``` gives us caller methods chain:
 
 ```ruby  
   def your_method name, *args
     # ...
-    inspect!(:caller)
+    inspect!(:caller) {}
   end
 
   # your_method(1,2,3,4,5) => 
@@ -114,7 +114,7 @@ And finally ```inspect!(:max) {}``` produces maximum information: options ```:in
 
 ```ruby
   def your_method *args
-    inspect!(:max){}
+    inspect!(:max) {}
   end
 
   # maximal(1, :two, "three", :four => 5) =>
@@ -135,7 +135,7 @@ And finally ```inspect!(:max) {}``` produces maximum information: options ```:in
   #   ...
 ```
 
-If you want all #inspect! methods fall silent at once, use
+If you want all ```#inspect!``` methods fall silent at once, use
 
 ```ruby
 Cutter::Inspection.quiet!
@@ -167,7 +167,7 @@ end
 
 ### #iii
 
-Instead of #inspect! you can use #iii - just an alias more convenient for typing. Finally, you have a group of 4 three-letters methods in your every day debugging workflow.
+Instead of ```#inspect!``` you can use ```#iii``` - just an alias more convenient for typing. Finally, you have a group of 4 three-letters methods in your every day debugging workflow.
 
 ## II) Cutter::Stamper
 
@@ -255,9 +255,16 @@ Demonstration of named stamping
 
 ## Notes
 
-* Both #inspect! and #stamper method colorize their output. You can see ```lib/cutter/colored_output.rb``` file to understand how it is done. I will really appreciate any suggestions of how current color scheme can be improved.
+* Both ```#inspect! {}``` and ```#stamper``` method colorize their output. You can see ```lib/cutter/colored_output.rb``` file to understand how it is done. I will really appreciate any suggestions of how current color scheme can be improved.
 
 ## Specs and demos
+
+Clone it
+
+```bash
+$ git clone https://github.com/stanislaw/cutter
+$ cd cutter
+```
 
 Specs are just
 
