@@ -1,21 +1,4 @@
 require 'spec_helper'
-require 'stringio'
-
-# http://thinkingdigitally.com/archive/capturing-output-from-puts-in-ruby/
-
-module Kernel
-  def capture_stdout
-    out = StringIO.new
-    $stdout = out
-
-    yield
-
-    out
-  ensure
-    $stdout = STDOUT
-  end
-end
-
 Cutter::Stamper.scope :stan => "testing test_method" do |stan|
   stan.msg :_1 => 'stamp1'
   stan.msg :_2 => 'stamp2'
@@ -30,13 +13,32 @@ end
 class Context
   def test_method &block
     stamper :stan do |s|
+      sleep 0.05
       stamp :_1
-      sleep 0.1
+      sleep 0.06
       stamp :_2
-      sleep 0.1
+      sleep 0.07
+      stamp!
+      sleep 0.08
       yield if block
       stamp :_3
-      sleep 0.1
+      sleep 0.09
+    end
+  end
+  
+  def test_method_with_capture &block
+    stamper(:stan, :capture => true) do |s|
+      sleep 0.05
+      stamp :_1
+      sleep 0.06
+      stamp :_2
+      print("Block has output")
+      sleep 0.07
+      stamp!
+      sleep 0.08
+      yield if block
+      stamp :_3
+      sleep 0.09
     end
   end
 end
@@ -52,6 +54,36 @@ describe Cutter::Stamper do
     result.should match(/stamp1/)
     result.should match(/stamp2/)
     result.should match(/stamp3/)
+  end
+
+  it "should produce milliseconds marks" do
+    out = capture_stdout do
+      Context.new.test_method
+    end
+    result = out.string
+
+    result.should match /50ms/
+    result.should match /110ms/
+    result.should match /180ms/
+  end
+
+  describe "#stamper" do
+    it "should return '(time)ms'" do
+      out = capture_stdout do
+        Context.new.test_method.should match /\d+ms/
+      end
+    end
+  
+    describe ":capture => true" do
+      it "should capture the output block has" do
+        out = capture_stdout do
+          Context.new.test_method_with_capture
+        end
+
+        result = out.string
+        result.should_not match /Block has output/
+      end
+    end
   end
 
   [:stamp, :stamp!].each do |meth|
