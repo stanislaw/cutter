@@ -257,6 +257,40 @@ Demonstration of named stamping
                          1001ms
 ```
 
+### Stamper with ```:capture => true``` option
+
+Use it to hide the output of piece you are benchmarking.
+
+```ruby
+require 'cutter'
+
+N = 100000
+
+result = []
+
+EMB = "String to embed"
+
+result << stamper(:capture => true) do
+  N.times do
+    puts "#{EMB}\n"
+  end
+end
+
+result << stamper(:capture => true) do
+  N.times do
+    printf "#{EMB}\n"
+  end
+end
+
+result << stamper(:capture => true) do
+  N.times do
+    print "#{EMB}\n"
+  end
+end
+
+puts result.inspect
+```
+
 ## Notes
 
 * Both ```#inspect! {}``` and ```#stamper``` methods colorize their output. You can see ```lib/cutter/colored_output.rb``` file to understand how it is done. I will really appreciate any suggestions of how current color scheme can be improved.

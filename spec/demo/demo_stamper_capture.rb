@@ -1,6 +1,6 @@
 require 'cutter'
 
-N = 1000
+N = 100000
 
 result = []
 
