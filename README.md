@@ -34,7 +34,7 @@ Insert ```#inspect!``` method into any of your methods:
   def your_method *your_args
     # ...
     
-    inspect! {} # curly braces are important!    
+    inspect! {} # curly braces are important - they capture original environment!    
     
     # or 
     # iii {} as an alias
