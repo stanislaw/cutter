@@ -44,7 +44,7 @@ class Object
     method_name = eval('__method__', _binding)
     class_name = eval('self.class', _binding)
 
-    if (meth = method(method_name.to_sym)).respond_to? :source_location
+    if method_name && (meth = method(method_name.to_sym)).respond_to?(:source_location)
       source_path, source_number = meth.source_location
     end
 
