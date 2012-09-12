@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "cutter"
-  s.version = "0.8.8"
+  s.version = "0.8.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["stanislaw"]
-  s.date = "2012-07-01"
+  s.date = "2012-09-12"
   s.description = "Ruby tracing gem"
   s.email = "s.pankevich@gmail.com"
   s.extra_rdoc_files = [
@@ -28,7 +28,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/stanislaw/cutter"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.19"
+  s.rubygems_version = "1.8.24"
   s.summary = "Ruby tracing gem"
 
   if s.respond_to? :specification_version then
